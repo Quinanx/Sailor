@@ -3,190 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sailor FX - Motion Graphics Artist</title>
+    <title>Sailor FX - Motion Graphics & Design</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0f172a',
-                        secondary: '#1e293b',
-                        accent: '#8b5cf6',
-                        dark: '#020617'
-                    },
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        heading: ['Playfair Display', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="https://unpkg.com/@splinetool/viewer@0.9.398/build/spline-viewer.js"></script>
     <style>
+        * {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         body {
-            background-color: #000000;
+            background: #000;
             color: #ffffff;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .glass-effect {
-            background: rgba(15, 23, 42, 0.25);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        /* Crisp SailorFX logo */
+        .logo {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-size: 1.8rem;
         }
 
-        .hero-bg {
-            background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
-        }
-
-        .portfolio-item {
-            transition: all 0.3s ease;
-            background: rgba(15, 23, 42, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3), 0 10px 10px -5px rgba(236, 72, 153, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            background: rgba(15, 23, 42, 0.5);
-        }
-
-        .pricing-card {
-            transition: all 0.3s ease;
-            background: rgba(15, 23, 42, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .pricing-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3), 0 10px 10px -5px rgba(236, 72, 153, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            background: rgba(15, 23, 42, 0.5);
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        .logo-gradient {
+            background: linear-gradient(90deg, #ff0076, #5900fb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: gradientMove 3s ease infinite;
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .section-divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #8b5cf6, #ec4899, transparent);
+        /* Sleek glass navigation */
+        nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(15, 15, 35, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            height: 70px;
+            z-index: 1000;
         }
 
         .nav-link {
             position: relative;
-            background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.1) 50%, transparent 100%);
-            padding: 5px 10px;
-            border-radius: 5px;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            height: 2px;
+            background: linear-gradient(90deg, #ff0076, #5900fb);
             transition: width 0.3s ease;
-            border-radius: 3px;
         }
 
         .nav-link:hover::after {
-            width: 100%;
+            width: 70%;
         }
 
-        .social-icon {
-            transition: all 0.3s ease;
-            background: rgba(15, 23, 42, 0.5);
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+        /* Vivid gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .social-icon:hover {
-            transform: translateY(-10px) scale(1.1);
-            background: linear-gradient(145deg, #8b5cf6, #ec4899);
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-            border: 1px solid rgba(236, 72, 153, 0.5);
-        }
-
-        .form-container {
-            background: rgba(15, 23, 42, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .input-field {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            color: white;
-        }
-
-        .input-field:focus {
-            border-color: #8b5cf6;
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
-            background: rgba(15, 23, 42, 0.7);
-        }
-
-        .submit-btn {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            border: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .submit-btn:hover {
-            background: linear-gradient(90deg, #7c3aed, #db2777);
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .portfolio-tag {
-            background: linear-gradient(90deg, #4f46e5, #7c3aed);
-            border-radius: 20px;
-            padding: 5px 15px;
-            font-weight: 500;
-        }
-
-        .portfolio-tag:hover {
-            background: linear-gradient(90deg, #7c3aed, #4f46e5);
-            transform: scale(1.05);
-        }
-
+        /* Section styling */
         .section-title {
             position: relative;
             display: inline-block;
-            transition: all 0.3s ease;
+            margin-bottom: 2rem;
         }
 
         .section-title::after {
@@ -195,40 +89,66 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 70px;
             height: 4px;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            background: linear-gradient(90deg, #ff0076, #5900fb);
             border-radius: 2px;
-            transition: all 0.3s ease;
         }
 
-        .section-title:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        /* Portfolio items */
+        .portfolio-item {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(20, 20, 40, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .section-title:hover::after {
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(89, 0, 251, 0.3);
+        }
+
+        .portfolio-item img,
+        .portfolio-item video {
             width: 100%;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b);
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .section-title::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
+        .portfolio-item:hover img,
+        .portfolio-item:hover video {
+            transform: scale(1.03);
         }
 
-        .section-title:hover::before {
-            opacity: 1;
+        .portfolio-tag {
+            background: rgba(89, 0, 251, 0.15);
+            border: 1px solid rgba(89, 0, 251, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Pricing cards */
+        .pricing-card {
+            transition: all 0.3s ease;
+            background: rgba(20, 20, 40, 0.4);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(89, 0, 251, 0.3);
+        }
+
+        .popular-card {
+            border: 1px solid rgba(89, 0, 251, 0.5);
+            box-shadow: 0 0 30px rgba(89, 0, 251, 0.2);
         }
 
         .card-icon {
@@ -237,228 +157,295 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(145deg, #8b5cf6, #ec4899);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-        }
-
-        .popular-badge {
-            background: linear-gradient(90deg, #f59e0b, #ef4444);
-            padding: 5px 15px;
+            background: linear-gradient(145deg, #ff0076, #5900fb);
             border-radius: 20px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(89, 0, 251, 0.2);
+        }
+
+        /* Contact form */
+        .form-container {
+            background: rgba(20, 20, 40, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+
+        .input-field {
+            background: rgba(15, 15, 35, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .input-field:focus {
+            border-color: #5900fb;
+            box-shadow: 0 0 15px rgba(89, 0, 251, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            border: none;
+            border-radius: 12px;
             font-weight: 600;
-            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
 
-        .showreel-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            transition: all 0.5s ease;
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(89, 0, 251, 0.3);
         }
 
-        .showreel-preview {
-            width: 100%;
-            height: 100%;
+        /* Social icons */
+        .social-icon {
+            transition: all 0.3s ease;
+            background: rgba(20, 20, 40, 0.4);
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .showreel-bg {
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(145deg, #ff0076, #5900fb);
+            box-shadow: 0 10px 20px rgba(89, 0, 251, 0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            nav {
+                height: 60px;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .hero-content {
+                text-align: center;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* New Animations */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(270deg, #ff0076, #5900fb, #00d4ff, #ff0076);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .video-container {
+            position: relative;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .video-container:hover .play-icon {
+            opacity: 1;
+        }
+
+        .spline-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            z-index: 0;
+            opacity: 0.2;
         }
 
-        .pop-text {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+        .spline-container spline-viewer {
+            width: 100%;
+            height: 100%;
         }
 
-        .pop-text:hover {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            transform: scale(1.02);
-        }
-
-        .moving-gradient-text {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b, #8b5cf6);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientMove 8s linear infinite;
-        }
-
-        .glow-effect {
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
-        }
-
-        /* Glow text for brand */
-        .glow-text {
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
-                         0 0 10px rgba(0, 128, 255, 0.4),
-                         0 0 20px rgba(0, 128, 255, 0.3);
-        }
-
-        /* Hover blur glow */
-        .glow-hover {
+        .hero-content {
             position: relative;
-            color: #fff;
-            transition: all 0.3s ease;
+            z-index: 10;
         }
 
-        .glow-hover::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.25), transparent 70%);
-            filter: blur(10px);
-            border-radius: 9999px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
+        .graphic-design-img {
+            transition: all 0.5s ease;
+            transform: scale(0.95);
+            opacity: 0.9;
         }
 
-        .glow-hover:hover::before {
+        .portfolio-item:hover .graphic-design-img {
+            transform: scale(1);
             opacity: 1;
         }
 
-        /* Optional underline animation */
-        .nav-link-underline {
-            position: relative;
-            padding-bottom: 4px;
-            font-weight: 500;
-            text-transform: uppercase;
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
-        .nav-link-underline::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: white;
-            transition: width 0.3s ease;
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .nav-link-underline:hover::after {
-            width: 100%;
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(89, 0, 251, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(89, 0, 251, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(89, 0, 251, 0); }
         }
     </style>
 </head>
-<body class="font-sans">
+<body>
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 backdrop-blur-xl bg-white/10 border-b border-white/10 shadow-md py-4 px-6 transition-all duration-300">
+    <nav class="fixed w-full z-50 py-3 px-6 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Left: Logo -->
+            <!-- Crisp SailorFX logo -->
             <div class="flex-shrink-0">
-                <a href="#" class="text-2xl font-bold gradient-text glow-text">Sailor<span class="text-white">FX</span></a>
+                <a href="#" class="logo text-white">Sailor<span class="logo-gradient">FX</span></a>
             </div>
-            <!-- Right: Nav Links + Hamburger -->
-            <div class="flex items-center space-x-6">
-                <div class="hidden md:flex space-x-8">
-                    <a href="#portfolio" class="nav-link glow-hover hover-sound">Portfolio</a>
-                    <a href="#pricing" class="nav-link glow-hover hover-sound">Pricing</a>
-                    <a href="#contact" class="nav-link glow-hover hover-sound">Contact</a>
-                    <a href="#about" class="nav-link glow-hover hover-sound">About</a>
+            <!-- Navigation Links -->
+            <div class="flex items-center space-x-2 md:space-x-6">
+                <div class="hidden md:flex space-x-4">
+                    <a href="#portfolio" class="nav-link text-gray-300 hover:text-white">Portfolio</a>
+                    <a href="#pricing" class="nav-link text-gray-300 hover:text-white">Pricing</a>
+                    <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
+                    <a href="#design" class="nav-link text-gray-300 hover:text-white">Design</a>
                 </div>
-                <button class="md:hidden text-white glow-hover hover-sound">
-                    <i class="fas fa-bars text-2xl"></i>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hover Sound -->
-    <audio id="hoverSound" src="https://www.soundjay.com/buttons/sounds/button-35.mp3" preload="auto"></audio>
+   <!-- Spline Viewer Script (add this in <head> or before </body>) -->
+<script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.492/build/spline-viewer.js"></script>
 
-    <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center pt-16">
-        <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-            <div class="text-center md:text-left">
-                <h1 class="text-5xl md:text-7xl font-heading mb-6 pop-text">
-                    Motion Graphics <span class="gradient-text moving-gradient-text">Artist</span>
-                </h1>
-                <h2 class="text-2xl md:text-3xl mb-8 text-gray-300 pop-text">Video Editor & Visual Storyteller</h2>
-                <p class="text-lg mb-10 max-w-lg mx-auto md:mx-0 text-gray-400">
-                    Creating stunning visual experiences with cutting-edge motion graphics, 3D animation, and sound design.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a href="#portfolio" class="bg-accent hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-center glow-effect">View Portfolio</a>
-                    <a href="#contact" class="border-2 border-accent text-accent hover:bg-accent hover:text-white font-bold py-3 px-8 rounded-full transition duration-300 text-center">Get in Touch</a>
-                </div>
-            </div>
-            <div class="relative">
-                <div class="absolute -top-6 -right-6 w-full h-full border-2 border-accent rounded-lg"></div>
-                <div class="relative showreel-container aspect-video">
-                    <div class="showreel-bg"></div>
-                    <video
-                        id="showreel-video"
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        class="showreel-preview rounded-lg overflow-hidden h-full w-full object-cover"
-                    >
-                        <source src="https://framerusercontent.com/assets/cMCjgZt8ihmDWaScFPNXxbKOno.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
+<!-- Hero Section with NEW Spline Background -->
+<section class="min-h-screen flex items-center pt-16 relative overflow-hidden">
+  <!-- Updated Spline Scene -->
+  <div class="spline-container">
+    <spline-viewer url="https://prod.spline.design/JfIDeBxPa4eFOCjR/scene.splinecode"></spline-viewer>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="hero-content">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">
+        Motion <span class="gradient-text">Graphics</span> Artist
+      </h1>
+      <h2 class="text-xl md:text-2xl mb-8 text-gray-300">Video Editor & Visual Storyteller</h2>
+      <p class="text-lg mb-10 max-w-lg text-gray-300">
+        Creating stunning visual experiences with cutting-edge motion graphics, 3D animation, and sound design.
+      </p>
+      <div class="hero-buttons flex flex-col sm:flex-row gap-4">
+        <a href="#portfolio" class="animated-gradient text-white font-bold py-3 px-8 rounded-full transition duration-300 text-center">View Portfolio</a>
+        <a href="#contact" class="border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white font-bold py-3 px-8 rounded-full transition duration-300 text-center">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="absolute -top-4 -right-4 w-full h-full border-2 border-purple-600 rounded-xl pulse"></div>
+      <div class="relative aspect-video rounded-xl overflow-hidden video-container">
+        <video class="w-full h-full" poster="https://framerusercontent.com/images/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.jpg">
+          <source src="https://framerusercontent.com/assets/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.mp4" type="video/mp4">
+        </video>
+        <div class="play-icon">
+          <i class="fas fa-play text-xl text-white"></i>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 glass-effect">
+    <section id="portfolio" class="py-20">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-heading mb-4 section-title pop-text">Portfolio</h2>
-                <div class="section-divider max-w-md mx-auto mb-8"></div>
-                <p class="text-gray-400 max-w-2xl mx-auto">Explore my latest projects showcasing a blend of motion graphics, visual effects, and creative storytelling.</p>
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">Portfolio</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Explore my latest projects showcasing a blend of motion graphics, visual effects, and creative design.</p>
             </div>
 
             <!-- Long Form Projects -->
             <div class="mb-20">
-                <h3 class="text-2xl font-bold mb-10 flex items-center pop-text">
-                    <i class="fas fa-film mr-3 text-accent"></i> LONG FORM
+                <h3 class="text-2xl font-bold mb-10 flex items-center fade-in">
+                    <i class="fas fa-film mr-3 text-purple-500"></i> LONG FORM
                 </h3>
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="portfolio-item">
-                        <video autoplay muted loop playsinline class="h-64 w-full object-cover">
-                            <source src="https://framerusercontent.com/assets/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.mp4" type="video/mp4">
-                        </video>
+                    <div class="portfolio-item fade-in">
+                        <div class="h-64 overflow-hidden video-container">
+                            <video class="w-full h-full" poster="https://framerusercontent.com/images/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.jpg">
+                                <source src="https://framerusercontent.com/assets/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.mp4" type="video/mp4">
+                            </video>
+                            <div class="play-icon">
+                                <i class="fas fa-play text-xl text-white"></i>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h4 class="text-xl font-bold mb-2 pop-text">Cinematic Motion Graphics</h4>
-                            <p class="text-gray-400 mb-4">A high-energy motion graphics piece with dynamic transitions and 3D elements.</p>
+                            <h4 class="text-xl font-bold mb-2">Cinematic Motion Graphics</h4>
+                            <p class="text-gray-400 mb-4">High-energy motion graphics with dynamic transitions and 3D elements.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="portfolio-tag text-white text-sm">3D Animation</span>
-                                <span class="portfolio-tag text-white text-sm">Cinematic</span>
-                                <span class="portfolio-tag text-white text-sm">Transitions</span>
+                                <span class="portfolio-tag">3D Animation</span>
+                                <span class="portfolio-tag">Cinematic</span>
+                                <span class="portfolio-tag">Transitions</span>
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-item">
-                        <video autoplay muted loop playsinline class="h-64 w-full object-cover">
-                            <source src="https://framerusercontent.com/assets/p9yDPz2QNcqRIxkeJXx1CsrauM.mp4" type="video/mp4">
-                        </video>
+                    <div class="portfolio-item fade-in">
+                        <div class="h-64 overflow-hidden video-container">
+                            <video class="w-full h-full" poster="https://framerusercontent.com/images/p9yDPz2QNcqRIxkeJXx1CsrauM.jpg">
+                                <source src="https://framerusercontent.com/assets/p9yDPz2QNcqRIxkeJXx1CsrauM.mp4" type="video/mp4">
+                            </video>
+                            <div class="play-icon">
+                                <i class="fas fa-play text-xl text-white"></i>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h4 class="text-xl font-bold mb-2 pop-text">Abstract Visual Experience</h4>
-                            <p class="text-gray-400 mb-4">An immersive visual journey with fluid animations and particle effects.</p>
+                            <h4 class="text-xl font-bold mb-2">Abstract Visual Experience</h4>
+                            <p class="text-gray-400 mb-4">Immersive visual journey with fluid animations and particle effects.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="portfolio-tag text-white text-sm">VFX</span>
-                                <span class="portfolio-tag text-white text-sm">Particles</span>
-                                <span class="portfolio-tag text-white text-sm">Abstract</span>
+                                <span class="portfolio-tag">VFX</span>
+                                <span class="portfolio-tag">Particles</span>
+                                <span class="portfolio-tag">Abstract</span>
                             </div>
                         </div>
                     </div>
@@ -466,34 +453,141 @@
             </div>
 
             <!-- Shorts Form Projects -->
-            <div class="mb-32">
-                <!-- Section Title with Gradient Animation -->
-                <h3 class="text-5xl font-extrabold mb-12 flex items-center animate-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent tracking-wide">
-                    <i class="fas fa-bolt mr-4 text-accent"></i> SHORTS FORM
+            <div class="mb-20">
+                <h3 class="text-2xl md:text-3xl font-bold mb-10 flex items-center fade-in">
+                    <i class="fas fa-bolt mr-3 text-purple-500"></i> SHORTS FORM
                 </h3>
 
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <!-- Portrait Video Card -->
-                    <div class="relative showreel-container flex justify-center">
-                        <div class="w-[360px] h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-black">
-                            <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                                <source src="https://framerusercontent.com/assets/VAc4x1bzewbGWb0gau5P5Kxyb4.mp4" type="video/mp4" />
-                            </video>
+                    <div class="flex justify-center fade-in">
+                        <div class="w-[320px] h-[560px] md:w-[360px] md:h-[640px] rounded-3xl overflow-hidden shadow-xl border border-white/10 bg-black portfolio-item">
+                            <div class="video-container w-full h-full">
+                                <video class="w-full h-full" poster="https://framerusercontent.com/images/VAc4x1bzewbGWb0gau5P5Kxyb4.jpg">
+                                    <source src="https://framerusercontent.com/assets/VAc4x1bzewbGWb0gau5P5Kxyb4.mp4" type="video/mp4" />
+                                </video>
+                                <div class="play-icon">
+                                    <i class="fas fa-play text-xl text-white"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Skills Section -->
-                    <div class="space-y-8">
-                        <h4 class="text-4xl font-bold bg-gradient-to-r from-fuchsia-400 via-purple-500 to-violet-600 bg-clip-text text-transparent">My Skills</h4>
+                    <div class="space-y-8 fade-in">
+                        <h4 class="text-3xl font-bold gradient-text">My Skills</h4>
                         <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-lg font-medium tracking-wide text-white/90">
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Motion Graphics</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> 3D Animation</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Visual Effects</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Sound Design</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Cinematic Editing</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Color Grading</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> After Effects</div>
-                            <div class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Premiere Pro</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Motion Graphics</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> 3D Animation</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Visual Effects</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Sound Design</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Cinematic Editing</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Color Grading</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> After Effects</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Premiere Pro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Graphic Design Section -->
+    <section id="design" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">
+                    <i class="fas fa-palette text-purple-500 mr-3 floating"></i>
+                    Graphic Design
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Captivating designs that blend creativity with strategic communication.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Design 1 -->
+                <div class="portfolio-item fade-in">
+                    <div class="overflow-hidden rounded-t-lg flex justify-center items-center bg-black p-4 h-80">
+                        <img src="https://framerusercontent.com/images/6ZUVXiVIZGLivnu7AVL36IvRtA.jpg?scale-down-to=2048"
+                             alt="Modern Design Concept"
+                             class="w-full max-h-[300px] object-contain graphic-design-img">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">Modern Design Concept</h4>
+                        <p class="text-gray-400 mb-4">Sleek and contemporary design with geometric patterns and vibrant colors.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="portfolio-tag">Minimalist</span>
+                            <span class="portfolio-tag">Typography</span>
+                            <span class="portfolio-tag">Branding</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 2 -->
+                <div class="portfolio-item fade-in">
+                    <div class="overflow-hidden rounded-t-lg flex justify-center items-center bg-black p-4 h-80">
+                        <img src="https://framerusercontent.com/images/i4wJkh0E11S1RH0wIlPuZYl2Dk.jpg?scale-down-to=2048"
+                             alt="Abstract Art Composition"
+                             class="w-full max-h-[300px] object-contain graphic-design-img">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">Abstract Art Composition</h4>
+                        <p class="text-gray-400 mb-4">Expressive abstract piece with fluid forms and harmonious colors.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="portfolio-tag">Abstract</span>
+                            <span class="portfolio-tag">Digital Art</span>
+                            <span class="portfolio-tag">Visual Identity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Upscaling Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rounded-2xl overflow-hidden bg-gradient-to-br from-[#1a1630] to-[#141227] p-8 md:p-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="fade-in">
+                        <span class="inline-block bg-gradient-to-r from-pink-600 to-purple-700 px-4 py-2 rounded-full text-sm font-bold mb-6">AI Enhanced</span>
+                        <h3 class="text-3xl font-bold mb-6">AI Image <span class="gradient-text">Upscaling</span></h3>
+                        <p class="text-gray-300 mb-6 text-lg">
+                            Transform low-resolution images into stunning high-definition visuals using advanced AI algorithms.
+                        </p>
+
+                        <div class="mb-8">
+                            <h4 class="text-xl font-bold mb-4 text-purple-400">Key Benefits:</h4>
+                            <ul class="space-y-3 text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                    <span>4x resolution enhancement without quality loss</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                    <span>Intelligent noise reduction and detail reconstruction</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                    <span>Color correction and enhancement</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center fade-in">
+                        <div class="rounded-xl overflow-hidden border border-white/10 portfolio-item relative">
+                            <img src="https://framerusercontent.com/images/dVdjm2rCSBOpFcvOFvLu7JVQ.jpg?scale-down-to=2048"
+                                 alt="AI Upscaling Example"
+                                 class="w-full max-h-[500px] object-contain">
+                            <div class="absolute bottom-4 left-4 bg-black/70 px-4 py-2 rounded-lg">
+                                <span class="text-sm font-bold text-purple-400">Before → After</span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <div class="flex gap-2">
+                                    <div class="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
+                                    <div class="text-white text-xs font-bold bg-black/60 px-2 py-1 rounded">AI Processing</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -502,107 +596,106 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-20 glass-effect">
+    <section id="pricing" class="py-20">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-heading mb-4 section-title pop-text">Pricing</h2>
-                <div class="section-divider max-w-md mx-auto mb-8"></div>
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">Pricing</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto">Flexible pricing options to match your project needs and budget.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Shorts Form Pricing -->
-                <div class="pricing-card rounded-xl p-8 border border-gray-700">
-                    <div class="card-icon relative z-10">
+                <div class="pricing-card rounded-xl p-8 fade-in">
+                    <div class="card-icon">
                         <i class="fas fa-bolt text-white text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-center pop-text">Shorts Form</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Shorts Form</h3>
                     <div class="mb-6 text-center">
-                        <span class="text-4xl font-bold gradient-text moving-gradient-text">$20-50</span>
-                        <span class="text-gray-400">/ project</span>
+                        <span class="text-3xl font-bold gradient-text">$20-50</span>
+                        <span class="text-gray-400 block">per project</span>
                     </div>
                     <ul class="mb-8 space-y-3">
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>One Revision</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>3D Motion Graphics</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Sound Designing</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Up to 60 seconds</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300 glow-effect">Get Started</a>
+                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300">Get Started</a>
                 </div>
 
                 <!-- Long Form Pricing -->
-                <div class="pricing-card bg-gradient-to-br from-purple-900 to-indigo-900 rounded-xl p-8 border-2 border-accent relative overflow-hidden">
-                    <div class="absolute -top-3 -right-3 popular-badge transform rotate-12">POPULAR</div>
+                <div class="pricing-card popular-card rounded-xl p-8 fade-in">
+                    <div class="absolute -top-3 -right-3 bg-gradient-to-r from-pink-600 to-purple-700 px-3 py-1 rounded-full text-xs font-bold transform rotate-12">POPULAR</div>
                     <div class="card-icon">
                         <i class="fas fa-film text-white text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-center pop-text">Long Form</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Long Form</h3>
                     <div class="mb-6 text-center">
-                        <span class="text-4xl font-bold gradient-text moving-gradient-text">$200-500</span>
-                        <span class="text-gray-300">/ project</span>
+                        <span class="text-3xl font-bold gradient-text">$200-500</span>
+                        <span class="text-gray-300 block">per project</span>
                     </div>
                     <ul class="mb-8 space-y-3">
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Two Revisions</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>3D Motion Graphics</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Sound Designing</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Up to 10 minutes</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300 glow-effect">Get Started</a>
+                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300">Get Started</a>
                 </div>
 
                 <!-- Custom Pricing -->
-                <div class="pricing-card rounded-xl p-8 border border-gray-700">
+                <div class="pricing-card rounded-xl p-8 fade-in">
                     <div class="card-icon">
                         <i class="fas fa-cog text-white text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-center pop-text">Custom</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Custom</h3>
                     <div class="mb-6 text-center">
-                        <span class="text-4xl font-bold gradient-text moving-gradient-text">Contact</span>
-                        <span class="text-gray-400">for pricing</span>
+                        <span class="text-3xl font-bold gradient-text">Contact</span>
+                        <span class="text-gray-400 block">for pricing</span>
                     </div>
                     <ul class="mb-8 space-y-3">
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Flexible Prices</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Any Niche</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Custom Timeline</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
                             <span>Unlimited Revisions</span>
                         </li>
                     </ul>
-                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300 glow-effect">Contact Me</a>
+                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300">Contact Me</a>
                 </div>
             </div>
         </div>
@@ -611,43 +704,42 @@
     <!-- Contact Section -->
     <section id="contact" class="py-20">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-heading mb-4 pop-text">Start Here</h2>
-            <div class="section-divider max-w-md mx-auto mb-8"></div>
-            <h3 class="text-3xl font-bold mb-10 pop-text">Let's create your vision</h3>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title fade-in">Start Here</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-12 fade-in">Let's create your vision together</p>
 
-            <div class="form-container rounded-2xl p-8 md:p-12 mb-16">
+            <div class="form-container rounded-2xl p-8 md:p-12 mb-16 fade-in">
                 <form class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <input type="text" placeholder="Your Name" class="w-full input-field rounded-lg py-4 px-6 focus:outline-none">
+                            <input type="text" placeholder="Your Name" class="w-full input-field py-3 px-6 focus:outline-none">
                         </div>
                         <div>
-                            <input type="email" placeholder="Your Email" class="w-full input-field rounded-lg py-4 px-6 focus:outline-none">
+                            <input type="email" placeholder="Your Email" class="w-full input-field py-3 px-6 focus:outline-none">
                         </div>
                     </div>
                     <div>
-                        <input type="text" placeholder="Project Type" class="w-full input-field rounded-lg py-4 px-6 focus:outline-none">
+                        <input type="text" placeholder="Project Type" class="w-full input-field py-3 px-6 focus:outline-none">
                     </div>
                     <div>
-                        <textarea placeholder="Tell me about your project..." rows="5" class="w-full input-field rounded-lg py-4 px-6 focus:outline-none"></textarea>
+                        <textarea placeholder="Tell me about your project..." rows="5" class="w-full input-field py-3 px-6 focus:outline-none"></textarea>
                     </div>
-                    <button type="submit" class="w-full submit-btn text-white font-bold py-4 px-6 rounded-full transition duration-300 glow-effect">Send Message</button>
+                    <button type="submit" class="w-full submit-btn text-white font-bold py-4 px-6 rounded-full transition duration-300">Send Message</button>
                 </form>
             </div>
 
-            <div>
-                <h3 class="text-2xl font-bold mb-8 pop-text">Connect</h3>
-                <div class="flex justify-center space-x-8">
-                    <a href="https://www.instagram.com/sailor.fx" target="_blank" class="social-icon text-3xl">
+            <div class="fade-in">
+                <h3 class="text-xl font-bold mb-8">Connect</h3>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://www.instagram.com/sailor.fx" target="_blank" class="social-icon text-xl">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://discordapp.com/users/sailor.fx" target="_blank" class="social-icon text-3xl">
+                    <a href="https://discordapp.com/users/sailor.fx" target="_blank" class="social-icon text-xl">
                         <i class="fab fa-discord"></i>
                     </a>
-                    <a href="#" class="social-icon text-3xl">
+                    <a href="#" class="social-icon text-xl">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="#" class="social-icon text-3xl">
+                    <a href="#" class="social-icon text-xl">
                         <i class="fab fa-behance"></i>
                     </a>
                 </div>
@@ -656,17 +748,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="glass-effect py-10 border-t border-gray-800">
+    <footer class="py-10 border-t border-gray-800 bg-[#0c0a1d]">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-2xl font-bold gradient-text moving-gradient-text">Sailor<span class="text-white">FX</span></a>
-                    <p class="mt-2 text-gray-500">Motion Graphics Artist & Video Editor</p>
+                    <a href="#" class="logo text-white">Sailor<span class="logo-gradient">FX</span></a>
+                    <p class="mt-2 text-gray-500">Motion Graphics Artist & Designer</p>
                 </div>
                 <div class="flex space-x-6">
                     <a href="#portfolio" class="text-gray-400 hover:text-white transition">Portfolio</a>
                     <a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a>
                     <a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a>
+                    <a href="#design" class="text-gray-400 hover:text-white transition">Design</a>
                 </div>
             </div>
             <div class="mt-10 pt-6 border-t border-gray-800 text-center text-gray-500">
@@ -695,84 +788,82 @@
         window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                nav.classList.add('shadow-lg');
+                nav.style.backgroundColor = 'rgba(15, 15, 35, 0.9)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
             } else {
-                nav.classList.remove('shadow-lg');
+                nav.style.backgroundColor = 'rgba(15, 15, 35, 0.7)';
+                nav.style.boxShadow = 'none';
+            }
+
+            // Fade-in animation for sections
+            document.querySelectorAll('.fade-in').forEach(element => {
+                const position = element.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        });
+
+        // Video hover play functionality
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const playIcon = container.querySelector('.play-icon');
+
+            container.addEventListener('mouseenter', () => {
+                video.play();
+            });
+
+            container.addEventListener('mouseleave', () => {
+                video.pause();
+            });
+
+            container.addEventListener('click', () => {
+                video.muted = !video.muted;
+
+                // Create mute indicator
+                const indicator = document.createElement('div');
+                indicator.innerHTML = video.muted ?
+                    '<i class="fas fa-volume-mute"></i>' :
+                    '<i class="fas fa-volume-up"></i>';
+                indicator.style.position = 'absolute';
+                indicator.style.top = '10px';
+                indicator.style.right = '10px';
+                indicator.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                indicator.style.color = 'white';
+                indicator.style.padding = '5px 10px';
+                indicator.style.borderRadius = '5px';
+                indicator.style.zIndex = '10';
+                indicator.style.fontSize = '1.2rem';
+
+                container.appendChild(indicator);
+
+                setTimeout(() => {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.remove();
+                    }, 500);
+                }, 1000);
+            });
+        });
+
+        // Initialize fade-in elements
+        document.querySelectorAll('.fade-in').forEach(element => {
+            const position = element.getBoundingClientRect();
+            if (position.top < window.innerHeight - 100) {
+                element.classList.add('visible');
             }
         });
 
-        // Showreel background color change effect
-        const showreelContainer = document.querySelector('.showreel-container');
-        const showreelBg = document.querySelector('.showreel-bg');
-
-        // Array of gradient colors for the showreel background
-        const gradients = [
-            'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
-            'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
-            'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
-            'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)',
-            'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)'
-        ];
-
-        let currentGradient = 0;
-
-        // Change gradient every 3 seconds
-        setInterval(() => {
-            showreelBg.style.opacity = '1';
-            showreelBg.style.background = gradients[currentGradient];
-
-            setTimeout(() => {
-                showreelBg.style.opacity = '0';
-            }, 2500);
-
-            currentGradient = (currentGradient + 1) % gradients.length;
-        }, 3000);
-
-        // Add hover effect to showreel container
-        showreelContainer.addEventListener('mouseenter', () => {
-            showreelContainer.style.transform = 'scale(1.02)';
-            showreelContainer.style.boxShadow = '0 0 30px rgba(139, 92, 246, 0.5)';
-        });
-
-        showreelContainer.addEventListener('mouseleave', () => {
-            showreelContainer.style.transform = 'scale(1)';
-            showreelContainer.style.boxShadow = 'none';
-        });
-
-        // Add pop effect to all elements with pop-text class
-        const popTextElements = document.querySelectorAll('.pop-text');
-
-        popTextElements.forEach(element => {
+        // Animate gradients
+        document.querySelectorAll('.animated-gradient').forEach(element => {
             element.addEventListener('mouseenter', () => {
-                element.style.transform = 'scale(1.02)';
-                element.style.textShadow = '0 0 20px rgba(255, 255, 255, 0.5)';
+                element.style.animation = 'gradientShift 3s ease infinite';
             });
 
             element.addEventListener('mouseleave', () => {
-                element.style.transform = 'scale(1)';
-                element.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.3)';
+                element.style.animation = 'none';
             });
         });
-
-        // Hover sound effect
-        const hoverSound = document.getElementById('hoverSound');
-        document.querySelectorAll('.hover-sound').forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                hoverSound.currentTime = 0;
-                hoverSound.play();
-            });
-        });
-
-        // Video mute toggle
-        const video = document.getElementById('showreel-video');
-        if (video) {
-            video.addEventListener('mouseenter', () => {
-                video.muted = false;
-            });
-            video.addEventListener('mouseleave', () => {
-                video.muted = true;
-            });
-        }
     </script>
 </body>
 </html>
