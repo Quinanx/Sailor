@@ -368,6 +368,58 @@
             }
         }
 
+        /* Enhanced Animations */
+        .float-up-down {
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .scale-pulse {
+            animation: scalePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes scalePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .blur-ball {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .security-shield {
+            animation: floatUpDown 4s ease-in-out infinite, rotate 20s linear infinite reverse;
+        }
+
+        /* Logo animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        .group:hover .relative {
+            animation: shake 0.5s ease-in-out;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .guddy-chat {
@@ -382,27 +434,38 @@
     </style>
 </head>
 <body>
+    <!-- Floating Blur Balls Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blur-ball w-64 h-64 bg-blue-400 top-1/4 left-1/4 animate-float-up-down"></div>
+        <div class="blur-ball w-80 h-80 bg-indigo-400 bottom-1/3 right-1/4 animate-float-up-down" style="animation-delay: 0.5s"></div>
+        <div class="blur-ball w-96 h-96 bg-cyan-400 top-1/3 right-1/3 animate-float-up-down" style="animation-delay: 1s"></div>
+        <div class="blur-ball w-72 h-72 bg-purple-400 bottom-1/4 left-1/3 animate-float-up-down" style="animation-delay: 1.5s"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <!-- Guddy Logo -->
-                        <img src="https://play-lh.googleusercontent.com/7YZLsGe-vvZed84XAPcOFC0XwGioDpIKLWOj70B3LFnVvNeKQu3moMeInXTNO2rK4ISB=w480-h960-rw" alt="Guddy Logo" class="h-10 w-10 rounded-xl">
+                        <!-- Enhanced Guddy Logo -->
+                        <div class="relative">
+                            <img src="https://play-lh.googleusercontent.com/7YZLsGe-vvZed84XAPcOFC0XwGioDpIKLWOj70B3LFnVvNeKQu3moMeInXTNO2rK4ISB=w480-h960-rw" alt="Guddy Logo" class="h-10 w-10 rounded-xl shadow-lg transform hover:rotate-12 transition-transform duration-300">
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                        </div>
                         <span class="ml-2 text-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Guddy</span>
                     </div>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-center space-x-4">
-                        <a href="#features" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Features</a>
-                        <a href="#security" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Security</a>
-                        <a href="#specs" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Specs</a>
-                        <a href="#download" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition-colors">Download</a>
+                        <a href="#features" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-indigo-50">Features</a>
+                        <a href="#security" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-indigo-50">Security</a>
+                        <a href="#specs" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-indigo-50">Specs</a>
+                        <a href="#download" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-md">Download</a>
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none transition-colors duration-300">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -424,13 +487,13 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
                 <div class="mb-12 lg:mb-0 hero-content">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 fade-up" style="animation-delay: 0.1s">
-                        Guddy – Chat Freely. Chat Securely. <span class="inline-block pop-in" style="animation-delay: 0.3s">Made in Bihar, India.</span>
+                        Guddy – Chat Freely. <span class="text-shadow-lg">Chat Securely.</span> <span class="inline-block pop-in bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-lg mt-4" style="animation-delay: 0.3s">Made in Bihar, India.</span>
                     </h1>
                     <p class="text-xl text-white/90 mb-8 max-w-lg fade-up" style="animation-delay: 0.2s">
                         Your conversations, your data, your country. Experience messaging without compromises.
                     </p>
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 fade-up" style="animation-delay: 0.3s">
-                        <a href="https://play.google.com/store/apps/details?id=com.gudiya.guddy&hl=en-US" target="_blank" class="btn-hover bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center glow">
+                        <a href="https://play.google.com/store/apps/details?id=com.gudiya.guddy&hl=en-US" target="_blank" class="btn-hover bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center glow transform hover:scale-105 transition-transform duration-300 shadow-xl">
                             Download Now
                             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -439,12 +502,12 @@
                     </div>
                     <p class="text-white/80 mt-6 text-sm fade-up" style="animation-delay: 0.4s">Available exclusively for Android devices</p>
                     <div class="mt-4 fade-up" style="animation-delay: 0.5s">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-12 inline-block">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-12 inline-block transform hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
 
                 <div class="phone-mockup flex justify-center pop-in" style="animation-delay: 0.6s">
-                    <div class="guddy-chat">
+                    <div class="guddy-chat transform hover:scale-105 transition-transform duration-500">
                         <div class="guddy-btn1"></div>
                         <div class="guddy-btn2"></div>
                         <div class="guddy-btn3"></div>
@@ -468,8 +531,8 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-up">Designed for Privacy, Built for India</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto fade-up">Guddy combines world-class security with the warmth of Indian values</p>
@@ -477,8 +540,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Feature 1 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow slide-in-left">
-                    <div class="w-16 h-16 bg-indigo-50 rounded-lg flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 slide-in-left">
+                    <div class="w-16 h-16 bg-indigo-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                         </svg>
@@ -488,8 +551,8 @@
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow fade-up">
-                    <div class="w-16 h-16 bg-cyan-50 rounded-lg flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 fade-up">
+                    <div class="w-16 h-16 bg-cyan-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
@@ -499,8 +562,8 @@
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow fade-up">
-                    <div class="w-16 h-16 bg-amber-50 rounded-lg flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 fade-up">
+                    <div class="w-16 h-16 bg-amber-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
                         </svg>
@@ -510,8 +573,8 @@
                 </div>
 
                 <!-- Feature 4 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow slide-in-right">
-                    <div class="w-16 h-16 bg-emerald-50 rounded-lg flex items-center justify-center mb-6">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 slide-in-right">
+                    <div class="w-16 h-16 bg-emerald-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
@@ -524,11 +587,11 @@
     </section>
 
     <!-- Security Section -->
-    <section id="security" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
+    <section id="security" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div class="mb-12 lg:mb-0">
-                    <div class="encryption-icon w-24 h-24 bg-indigo-100 rounded-2xl flex items-center justify-center mb-8 mx-auto lg:mx-0">
+                    <div class="encryption-icon w-24 h-24 bg-indigo-100 rounded-2xl flex items-center justify-center mb-8 mx-auto lg:mx-0 security-shield">
                         <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
@@ -572,19 +635,20 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 pop-in">
-                    <div class="relative h-64 mb-8">
-                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg rotate"></div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 pop-in transform hover:scale-[1.02] transition-transform duration-300">
+                    <div class="relative h-64 mb-8 overflow-hidden rounded-lg">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 rotate"></div>
                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                            <svg class="w-32 h-32 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
+                            <div class="relative">
+                                <svg class="w-32 h-32 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-indigo-200 rounded-full opacity-20 animate-ping"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-ping">
-                            <svg class="w-32 h-32 text-indigo-200 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
-                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white to-transparent"></div>
                     </div>
                     <h3 class="text-xl font-semibold text-center text-gray-900 mb-4">How Guddy Protects You</h3>
                     <p class="text-gray-600 text-center">Guddy uses multiple layers of encryption to ensure your messages can only be read by you and your intended recipients. Even we can't access your conversations.</p>
@@ -594,16 +658,16 @@
     </section>
 
     <!-- Specs Section -->
-    <section id="specs" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
+    <section id="specs" class="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-up">Technical Specifications</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto fade-up">Built with cutting-edge technology to deliver a seamless experience</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in" style="animation-delay: 0.1s">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.1s">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
                         </svg>
@@ -612,8 +676,8 @@
                     <p class="text-gray-600">Guddy uses end-to-end encryption for all messages, calls, and files.</p>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in" style="animation-delay: 0.2s">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.2s">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
                         </svg>
@@ -622,8 +686,8 @@
                     <p class="text-gray-600">Hosted exclusively in India across multiple secure data centers in Patna, Varanasi, and Delhi for low latency and data sovereignty.</p>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in" style="animation-delay: 0.3s">
-                    <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-6">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.3s">
+                    <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -632,8 +696,8 @@
                     <p class="text-gray-600">Groups support up to 512 members with admin controls, disappearing messages, and media sharing up to 2GB per file.</p>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in" style="animation-delay: 0.4s">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.4s">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
@@ -642,8 +706,8 @@
                     <p class="text-gray-600">Share high-quality photos, videos (up to 1GB), documents (up to 2GB), and voice messages with no compression or quality loss.</p>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in" style="animation-delay: 0.5s">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.5s">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
@@ -652,8 +716,8 @@
                     <p class="text-gray-600">Optimized for low-end devices and slow networks. Works smoothly even on 2G connections.</p>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in" style="animation-delay: 0.6s">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.6s">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
                         <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
@@ -670,7 +734,7 @@
         <div class="absolute inset-0 bg-white/20"></div>
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center">
-                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg pop-in">
+                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg pop-in scale-pulse">
                     <svg class="w-10 h-10 text-green-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
                     </svg>
@@ -678,8 +742,8 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-up">Built with Pride. Built for You.</h2>
                 <p class="text-xl text-gray-800 max-w-3xl mx-auto mb-8 fade-up">Guddy is more than an app—it's a testament to Bihar's innovation and our commitment to digital sovereignty.</p>
                 <div class="flex justify-center fade-up">
-                    <div class="relative">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png" alt="Indian Flag" class="h-32 border-4 border-white shadow-lg">
+                    <div class="relative transform hover:scale-105 transition-transform duration-500">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png" alt="Indian Flag" class="h-32 border-4 border-white shadow-lg rounded">
                         <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1 rounded-full text-sm font-medium text-gray-800 shadow-md">
                             Made in Bihar, India
                         </div>
@@ -690,11 +754,11 @@
     </section>
 
     <!-- Download Section -->
-    <section id="download" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
+    <section id="download" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center">
                 <div class="mb-12">
-                    <div class="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg pop-in">
+                    <div class="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg pop-in float-up-down">
                         <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                         </svg>
@@ -703,7 +767,7 @@
                     <p class="text-xl text-gray-300 mb-8 fade-up">Join 100k+ of Indians who have switched to Guddy for secure, fast, and private communication.</p>
 
                     <div class="flex justify-center fade-up">
-                        <a href="https://play.google.com/store/apps/details?id=com.gudiya.guddy&hl=en-US" target="_blank" class="btn-hover bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center glow">
+                        <a href="https://play.google.com/store/apps/details?id=com.gudiya.guddy&hl=en-US" target="_blank" class="btn-hover bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center glow transform hover:scale-105 transition-transform duration-300 shadow-xl">
                             Download for Android
                             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -712,7 +776,7 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-800 rounded-xl p-8 max-w-2xl mx-auto border border-gray-700">
+                <div class="bg-gray-800 rounded-xl p-8 max-w-2xl mx-auto border border-gray-700 transform hover:scale-[1.02] transition-transform duration-300">
                     <h3 class="text-xl font-semibold text-white mb-4">Why Choose Guddy?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex items-start">
@@ -760,42 +824,45 @@
                 <div>
                     <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Guddy</h3>
                     <ul class="space-y-2">
-                        <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
-                        <li><a href="#security" class="text-gray-400 hover:text-white">Security</a></li>
-                        <li><a href="#specs" class="text-gray-400 hover:text-white">Specifications</a></li>
-                        <li><a href="#download" class="text-gray-400 hover:text-white">Download</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors duration-300">Features</a></li>
+                        <li><a href="#security" class="text-gray-400 hover:text-white transition-colors duration-300">Security</a></li>
+                        <li><a href="#specs" class="text-gray-400 hover:text-white transition-colors duration-300">Specifications</a></li>
+                        <li><a href="#download" class="text-gray-400 hover:text-white transition-colors duration-300">Download</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Company</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Our Mission</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Our Mission</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Contact</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Support</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Tutorials</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Community</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Legal</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center">
-                    <img src="https://play-lh.googleusercontent.com/7YZLsGe-vvZed84XAPcOFC0XwGioDpIKLWOj70B3LFnVvNeKQu3moMeInXTNO2rK4ISB=w480-h960-rw" alt="Guddy Logo" class="h-10 w-10 rounded-xl">
+                    <div class="relative">
+                        <img src="https://play-lh.googleusercontent.com/7YZLsGe-vvZed84XAPcOFC0XwGioDpIKLWOj70B3LFnVvNeKQu3moMeInXTNO2rK4ISB=w480-h960-rw" alt="Guddy Logo" class="h-10 w-10 rounded-xl shadow-lg">
+                        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                    </div>
                     <span class="ml-2 text-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Guddy</span>
                 </div>
                 <p class="mt-4 md:mt-0 text-gray-400 text-sm">© Guddy. All rights reserved. Made in Bihar, India.</p>
@@ -925,7 +992,7 @@
         // Guddy Chat Animation
         const messages = [
             { side: 'left', text: 'Hey! How have you been?' },
-            { side: 'right', text: 'I’ve been great! Just started using Guddy 😄' },
+            { side: 'right', text: 'I’ve been great! Just started using Guddy  😄' },
             { side: 'left', text: 'Oh nice! What’s that?' },
             { side: 'right', text: 'It’s the easiest way to stay in touch with friends and family.' },
             { side: 'left', text: 'Sounds perfect! I’m joining now.' }
@@ -957,6 +1024,16 @@
             }, delay);
 
             delay += 1600;
+        });
+
+        // Floating blur balls animation
+        gsap.to(".blur-ball", {
+            duration: 10,
+            x: "random(-100,100)",
+            y: "random(-50,50)",
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true
         });
     </script>
 </body>
