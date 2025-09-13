@@ -3,749 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guddy - Secure Indian Messaging App</title>
+    <title>Sailor FX - Motion Graphics & Design</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@splinetool/viewer@0.9.398/build/spline-viewer.js"></script>
     <style>
-        :root {
-            --primary: #06b6d4;
-            --secondary: #3b82f6;
-            --accent: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
+        * {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            background: #000;
+            color: #ffffff;
             overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .gradient-bg {
-            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
-            background-size: 200% 200%;
-            animation: gradient 15s ease infinite;
+        /* Crisp SailorFX logo */
+        .logo {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-size: 1.8rem;
         }
 
-        @keyframes gradient {
+        .logo-gradient {
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Sleek glass navigation */
+        nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(15, 15, 35, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            height: 70px;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        /* Vivid gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Section styling */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            border-radius: 2px;
+        }
+
+        /* Portfolio items */
+        .portfolio-item {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(20, 20, 40, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(89, 0, 251, 0.3);
+        }
+
+        .portfolio-item img,
+        .portfolio-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img,
+        .portfolio-item:hover video {
+            transform: scale(1.03);
+        }
+
+        .portfolio-tag {
+            background: rgba(89, 0, 251, 0.15);
+            border: 1px solid rgba(89, 0, 251, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Pricing cards */
+        .pricing-card {
+            transition: all 0.3s ease;
+            background: rgba(20, 20, 40, 0.4);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(89, 0, 251, 0.3);
+        }
+
+        .popular-card {
+            border: 1px solid rgba(89, 0, 251, 0.5);
+            box-shadow: 0 0 30px rgba(89, 0, 251, 0.2);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #ff0076, #5900fb);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(89, 0, 251, 0.2);
+        }
+
+        /* Contact form */
+        .form-container {
+            background: rgba(20, 20, 40, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+
+        .input-field {
+            background: rgba(15, 15, 35, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .input-field:focus {
+            border-color: #5900fb;
+            box-shadow: 0 0 15px rgba(89, 0, 251, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, #ff0076, #5900fb);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(89, 0, 251, 0.3);
+        }
+
+        /* Social icons */
+        .social-icon {
+            transition: all 0.3s ease;
+            background: rgba(20, 20, 40, 0.4);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(145deg, #ff0076, #5900fb);
+            box-shadow: 0 10px 20px rgba(89, 0, 251, 0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            nav {
+                height: 60px;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .hero-content {
+                text-align: center;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* New Animations */
+        @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .phone-mockup {
-            perspective: 1500px;
-            transform-style: preserve-3d;
+        .animated-gradient {
+            background: linear-gradient(270deg, #ff0076, #5900fb, #00d4ff, #ff0076);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
         }
 
-        .phone-screen {
-            transform: rotateY(-15deg) rotateX(5deg);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transition: all 0.5s ease;
+        .video-container {
+            position: relative;
         }
 
-        .phone-mockup:hover .phone-screen {
-            transform: rotateY(-5deg) rotateX(2deg);
-        }
-
-        .feature-card {
-            transition: all 0.3s ease;
-            transform: translateY(20px);
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
 
-        .feature-card.animate {
-            transform: translateY(0);
+        .video-container:hover .play-icon {
             opacity: 1;
         }
 
-        .indian-flag-wave {
-            background: linear-gradient(0deg, #ff9933 33%, #ffffff 33%, #ffffff 66%, #138808 66%);
-            background-size: 100% 300%;
-            animation: wave 8s ease infinite;
+        .spline-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.2;
         }
 
-        @keyframes wave {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 0% 100%; }
-            100% { background-position: 0% 0%; }
+        .spline-container spline-viewer {
+            width: 100%;
+            height: 100%;
         }
 
-        .glow {
-            animation: glow 2s ease-in-out infinite alternate;
+        .hero-content {
+            position: relative;
+            z-index: 10;
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
-            to { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+        .graphic-design-img {
+            transition: all 0.5s ease;
+            transform: scale(0.95);
+            opacity: 0.9;
         }
 
-        .btn-hover {
-            transition: all 0.3s ease;
+        .portfolio-item:hover .graphic-design-img {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
             transform: translateY(0);
         }
 
-        .btn-hover:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px -5px rgba(6, 182, 212, 0.4);
-        }
-
-        .scroll-indicator {
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        .app-screen {
-            animation: scroll-screen 15s linear infinite;
-        }
-
-        @keyframes scroll-screen {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
-        }
-
-        .encryption-icon {
-            animation: lock 3s ease infinite;
-        }
-
-        @keyframes lock {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-
-        /* Guddy Chat Animation Styles */
-        .guddy-chat {
-            --screen-w: 300px;
-            --screen-h: 580px;
-            --accent: #1736ff;
-            --accent-2: #4b2bff;
-            width: var(--screen-w);
-            height: var(--screen-h);
-            background: black;
-            border-radius: 35px;
-            border: 2px solid rgb(40, 40, 40);
-            padding: 10px;
-            position: relative;
-            box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-
-        .guddy-screen {
-            background-image: linear-gradient(to right bottom, #ff0000, #ff0045, #ff0078, #ea00aa, #b81cd7, #8a3ad6, #5746cf, #004ac2, #003d94, #002e66, #001d3a, #020812);
-            background-size: 200% 200%;
-            background-position: 0% 0%;
-            height: 100%;
-            border-radius: 28px;
-            transition: all 0.6s ease-out;
-            overflow: hidden;
-            display:flex;
-            flex-direction:column;
-        }
-
-        .guddy-top {
-            position: absolute;
-            top: 0px;
-            right: 50%;
-            transform: translate(50%, 0%);
-            width: 35%;
-            height: 22px;
-            background-color: black;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-
-        .guddy-speaker {
-            position: absolute;
-            top: 4px;
-            right: 50%;
-            transform: translate(50%, 0%);
-            width: 40%;
-            height: 3px;
-            border-radius: 2px;
-            background-color: rgb(20, 20, 20);
-        }
-
-        .guddy-camera {
-            position: absolute;
-            top: 7px;
-            right: 84%;
-            transform: translate(50%, 0%);
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.048);
-        }
-
-        .guddy-int {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            top: 50%;
-            right: 50%;
-            transform: translate(50%, -50%);
-            background-color: rgba(0, 0, 255, 0.212);
-        }
-
-        .guddy-btn1, .guddy-btn2, .guddy-btn3 {
-            position: absolute;
-            width: 3px;
-        }
-
-        .guddy-btn1 {
-            height: 50px;
-            top: 30%;
-            right: -5px;
-            background-image: linear-gradient(to right, #111, #222, #333, #464646, #595959);
-        }
-
-        .guddy-btn2, .guddy-btn3 {
-            transform: scale(-1);
-            left: -5px;
-            background-image: linear-gradient(to right, #111, #222, #333, #464646, #595959);
-        }
-
-        .guddy-btn2 { height: 35px; top: 26% }
-        .guddy-btn3 { height: 35px; top: 36% }
-
-        .guddy-chat-area {
-            flex:1;
-            display:flex;
-            flex-direction:column;
-            justify-content:flex-end;
-            padding: 14px;
-            gap: 10px;
-            overflow:hidden;
-        }
-
-        .guddy-bubble {
-            max-width: 75%;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 15px;
-            line-height: 1.4;
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            animation: bubbleIn 0.4s forwards ease-out;
-        }
-
-        .guddy-bubble.left {
-            background: white;
-            color: black;
-            border-bottom-left-radius: 4px;
-            align-self: flex-start;
-        }
-
-        .guddy-bubble.right {
-            background: var(--accent);
-            color: white;
-            border-bottom-right-radius: 4px;
-            align-self: flex-end;
-        }
-
-        @keyframes bubbleIn {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .guddy-typing {
-            display: inline-flex;
-            gap: 4px;
-            padding: 8px 12px;
-            background: white;
-            border-radius: 14px;
-            border-bottom-left-radius: 4px;
-        }
-
-        .guddy-dot {
-            width: 5px;
-            height: 5px;
-            background: #aaa;
-            border-radius: 50%;
-            animation: blink 1.4s infinite;
-        }
-
-        .guddy-dot:nth-child(2) { animation-delay: 0.2s; }
-        .guddy-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes blink {
-            0%, 80%, 100% { opacity: 0.2; }
-            40% { opacity: 1; }
-        }
-
-        /* Kite Logo */
-        .kite-logo {
-            width: 36px;
-            height: 36px;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-
-        /* Pop Animations */
-        .pop-in {
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        @keyframes popIn {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .fade-up {
-            animation: fadeUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* New Animations */
         .pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .rotate {
-            animation: rotate 8s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .slide-in-left {
-            animation: slideInLeft 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-
-        @keyframes slideInLeft {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .slide-in-right {
-            animation: slideInRight 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateX(30px);
-        }
-
-        @keyframes slideInRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Enhanced Animations */
-        .float-up-down {
-            animation: floatUpDown 4s ease-in-out infinite;
-        }
-
-        @keyframes floatUpDown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .scale-pulse {
-            animation: scalePulse 3s ease-in-out infinite;
-        }
-
-        @keyframes scalePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .blur-ball {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.7;
-            z-index: 0;
-        }
-
-        .feature-icon {
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .security-shield {
-            animation: floatUpDown 4s ease-in-out infinite, rotate 20s linear infinite reverse;
-        }
-
-        /* Logo animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-5px); }
-            40% { transform: translateX(5px); }
-            60% { transform: translateX(-5px); }
-            80% { transform: translateX(5px); }
-        }
-
-        .group:hover .relative {
-            animation: shake 0.5s ease-in-out;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .guddy-chat {
-                --screen-w: 280px;
-                --screen-h: 520px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
+            0% { box-shadow: 0 0 0 0 rgba(89, 0, 251, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(89, 0, 251, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(89, 0, 251, 0); }
         }
     </style>
 </head>
 <body>
-    <!-- Floating Blur Balls Background -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="blur-ball w-64 h-64 bg-blue-400 top-1/4 left-1/4 animate-float-up-down"></div>
-        <div class="blur-ball w-80 h-80 bg-indigo-400 bottom-1/3 right-1/4 animate-float-up-down" style="animation-delay: 0.5s"></div>
-        <div class="blur-ball w-96 h-96 bg-cyan-400 top-1/3 right-1/3 animate-float-up-down" style="animation-delay: 1s"></div>
-        <div class="blur-ball w-72 h-72 bg-purple-400 bottom-1/4 left-1/3 animate-float-up-down" style="animation-delay: 1.5s"></div>
-    </div>
-
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <!-- Enhanced Guddy Logo -->
-                        <div class="relative">
-                            <img src="https://play-lh.googleusercontent.com/7YZLsGe-vvZed84XAPcOFC0XwGioDpIKLWOj70B3LFnVvNeKQu3moMeInXTNO2rK4ISB=w480-h960-rw" alt="Guddy Logo" class="h-10 w-10 rounded-xl shadow-lg transform hover:rotate-12 transition-transform duration-300">
-                            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-                        </div>
-                        <span class="ml-2 text-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Guddy</span>
-                    </div>
+    <nav class="fixed w-full z-50 py-3 px-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Crisp SailorFX logo -->
+            <div class="flex-shrink-0">
+                <a href="#" class="logo text-white">Sailor<span class="logo-gradient">FX</span></a>
+            </div>
+            <!-- Navigation Links -->
+            <div class="flex items-center space-x-2 md:space-x-6">
+                <div class="hidden md:flex space-x-4">
+                    <a href="#portfolio" class="nav-link text-gray-300 hover:text-white">Portfolio</a>
+                    <a href="#pricing" class="nav-link text-gray-300 hover:text-white">Pricing</a>
+                    <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
+                    <a href="#design" class="nav-link text-gray-300 hover:text-white">Design</a>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-4">
-                        <a href="#features" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-indigo-50">Features</a>
-                        <a href="#security" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-indigo-50">Security</a>
-                        <a href="#specs" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:bg-indigo-50">Specs</a>
-                        <a href="#download" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-md">Download</a>
-                    </div>
-                </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none transition-colors duration-300">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="gradient-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
-            <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-indigo-400 rounded-full filter blur-3xl opacity-70 animate-pulse delay-300"></div>
-            <div class="absolute top-1/3 right-1/3 w-96 h-96 bg-cyan-400 rounded-full filter blur-3xl opacity-70 animate-pulse delay-700"></div>
+   <!-- Spline Viewer Script (add this in <head> or before </body>) -->
+<script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.492/build/spline-viewer.js"></script>
+
+<!-- Hero Section with NEW Spline Background -->
+<section class="min-h-screen flex items-center pt-16 relative overflow-hidden">
+  <!-- Updated Spline Scene -->
+  <div class="spline-container">
+    <spline-viewer url="https://prod.spline.design/JfIDeBxPa4eFOCjR/scene.splinecode"></spline-viewer>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="hero-content">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">
+        Motion <span class="gradient-text">Graphics</span> Artist
+      </h1>
+      <h2 class="text-xl md:text-2xl mb-8 text-gray-300">Video Editor & Visual Storyteller</h2>
+      <p class="text-lg mb-10 max-w-lg text-gray-300">
+        Creating stunning visual experiences with cutting-edge motion graphics, 3D animation, and sound design.
+      </p>
+      <div class="hero-buttons flex flex-col sm:flex-row gap-4">
+        <a href="#portfolio" class="animated-gradient text-white font-bold py-3 px-8 rounded-full transition duration-300 text-center">View Portfolio</a>
+        <a href="#contact" class="border-2 border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white font-bold py-3 px-8 rounded-full transition duration-300 text-center">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="absolute -top-4 -right-4 w-full h-full border-2 border-purple-600 rounded-xl pulse"></div>
+      <div class="relative aspect-video rounded-xl overflow-hidden video-container">
+        <video class="w-full h-full" poster="https://framerusercontent.com/images/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.jpg">
+          <source src="https://framerusercontent.com/assets/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.mp4" type="video/mp4">
+        </video>
+        <div class="play-icon">
+          <i class="fas fa-play text-xl text-white"></i>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
-                <div class="mb-12 lg:mb-0 hero-content">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 fade-up" style="animation-delay: 0.1s">
-                        Guddy – Chat Freely. <span class="text-shadow-lg">Chat Securely.</span> <span class="inline-block pop-in bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-lg mt-4" style="animation-delay: 0.3s">Made in Bihar, India.</span>
-                    </h1>
-                    <p class="text-xl text-white/90 mb-8 max-w-lg fade-up" style="animation-delay: 0.2s">
-                        Your conversations, your data, your country. Experience messaging without compromises.
-                    </p>
-                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 fade-up" style="animation-delay: 0.3s">
-                        <a href="https://play.google.com/store/apps/details?id=com.gudiya.guddy&hl=en-US" target="_blank" class="btn-hover bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center glow transform hover:scale-105 transition-transform duration-300 shadow-xl">
-                            Download Now
-                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                            </svg>
-                        </a>
-                    </div>
-                    <p class="text-white/80 mt-6 text-sm fade-up" style="animation-delay: 0.4s">Available exclusively for Android devices</p>
-                    <div class="mt-4 fade-up" style="animation-delay: 0.5s">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-12 inline-block transform hover:scale-105 transition-transform duration-300">
-                    </div>
-                </div>
 
-                <div class="phone-mockup flex justify-center pop-in" style="animation-delay: 0.6s">
-                    <div class="guddy-chat transform hover:scale-105 transition-transform duration-500">
-                        <div class="guddy-btn1"></div>
-                        <div class="guddy-btn2"></div>
-                        <div class="guddy-btn3"></div>
-                        <div class="guddy-top">
-                            <div class="guddy-camera"><div class="guddy-int"></div></div>
-                            <div class="guddy-speaker"></div>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">Portfolio</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Explore my latest projects showcasing a blend of motion graphics, visual effects, and creative design.</p>
+            </div>
+
+            <!-- Long Form Projects -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-bold mb-10 flex items-center fade-in">
+                    <i class="fas fa-film mr-3 text-purple-500"></i> LONG FORM
+                </h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="portfolio-item fade-in">
+                        <div class="h-64 overflow-hidden video-container">
+                            <video class="w-full h-full" poster="https://framerusercontent.com/images/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.jpg">
+                                <source src="https://framerusercontent.com/assets/tdyA6YJ0GWGwt2IN6iXXNF3Wqw.mp4" type="video/mp4">
+                            </video>
+                            <div class="play-icon">
+                                <i class="fas fa-play text-xl text-white"></i>
+                            </div>
                         </div>
-                        <div class="guddy-screen">
-                            <div class="guddy-chat-area" id="chat"></div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2">Cinematic Motion Graphics</h4>
+                            <p class="text-gray-400 mb-4">High-energy motion graphics with dynamic transitions and 3D elements.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="portfolio-tag">3D Animation</span>
+                                <span class="portfolio-tag">Cinematic</span>
+                                <span class="portfolio-tag">Transitions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item fade-in">
+                        <div class="h-64 overflow-hidden video-container">
+                            <video class="w-full h-full" poster="https://framerusercontent.com/images/p9yDPz2QNcqRIxkeJXx1CsrauM.jpg">
+                                <source src="https://framerusercontent.com/assets/p9yDPz2QNcqRIxkeJXx1CsrauM.mp4" type="video/mp4">
+                            </video>
+                            <div class="play-icon">
+                                <i class="fas fa-play text-xl text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2">Abstract Visual Experience</h4>
+                            <p class="text-gray-400 mb-4">Immersive visual journey with fluid animations and particle effects.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="portfolio-tag">VFX</span>
+                                <span class="portfolio-tag">Particles</span>
+                                <span class="portfolio-tag">Abstract</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
-            <svg class="w-8 h-8 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
-    </section>
+            <!-- Shorts Form Projects -->
+            <div class="mb-20">
+                <h3 class="text-2xl md:text-3xl font-bold mb-10 flex items-center fade-in">
+                    <i class="fas fa-bolt mr-3 text-purple-500"></i> SHORTS FORM
+                </h3>
 
-    <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-up">Designed for Privacy, Built for India</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto fade-up">Guddy combines world-class security with the warmth of Indian values</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Feature 1 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 slide-in-left">
-                    <div class="w-16 h-16 bg-indigo-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">End-to-End Encryption</h3>
-                    <p class="text-gray-600">Every message, call, and file is secured with military-grade encryption. Only you and the recipient can read them.</p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 fade-up">
-                    <div class="w-16 h-16 bg-cyan-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">HD Voice & Video</h3>
-                    <p class="text-gray-600">Crystal clear calls with friends and family, powered by India's fastest networks and optimized for local conditions.</p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 fade-up">
-                    <div class="w-16 h-16 bg-amber-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Made in Bihar, India</h3>
-                    <p class="text-gray-600">Proudly developed in Bihar by Indian engineers, hosted on Indian servers, supporting the Indian digital ecosystem.</p>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 slide-in-right">
-                    <div class="w-16 h-16 bg-emerald-50 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">No Data Collection</h3>
-                    <p class="text-gray-600">We don't track you, we don't profile you, and we never sell your data to advertisers or third parties.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Security Section -->
-    <section id="security" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                <div class="mb-12 lg:mb-0">
-                    <div class="encryption-icon w-24 h-24 bg-indigo-100 rounded-2xl flex items-center justify-center mb-8 mx-auto lg:mx-0 security-shield">
-                        <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-up">Your Privacy is Our Promise</h2>
-                    <p class="text-xl text-gray-600 mb-8 fade-up">We never read your messages. We never sell your data. Guddy is built from the ground up to protect your right to private communication.</p>
-
-                    <div class="space-y-4 fade-up">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-700">Messages end to end encrypted </p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-700">No metadata collection or storage</p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-700">Self-destructing messages option</p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-700">Independent security audits</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 pop-in transform hover:scale-[1.02] transition-transform duration-300">
-                    <div class="relative h-64 mb-8 overflow-hidden rounded-lg">
-                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 rotate"></div>
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                            <div class="relative">
-                                <svg class="w-32 h-32 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
-                                <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-                                    <div class="w-16 h-16 bg-indigo-200 rounded-full opacity-20 animate-ping"></div>
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <!-- Portrait Video Card -->
+                    <div class="flex justify-center fade-in">
+                        <div class="w-[320px] h-[560px] md:w-[360px] md:h-[640px] rounded-3xl overflow-hidden shadow-xl border border-white/10 bg-black portfolio-item">
+                            <div class="video-container w-full h-full">
+                                <video class="w-full h-full" poster="https://framerusercontent.com/images/VAc4x1bzewbGWb0gau5P5Kxyb4.jpg">
+                                    <source src="https://framerusercontent.com/assets/VAc4x1bzewbGWb0gau5P5Kxyb4.mp4" type="video/mp4" />
+                                </video>
+                                <div class="play-icon">
+                                    <i class="fas fa-play text-xl text-white"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white to-transparent"></div>
                     </div>
-                    <h3 class="text-xl font-semibold text-center text-gray-900 mb-4">How Guddy Protects You</h3>
-                    <p class="text-gray-600 text-center">Guddy uses multiple layers of encryption to ensure your messages can only be read by you and your intended recipients. Even we can't access your conversations.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Specs Section -->
-    <section id="specs" class="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-up">Technical Specifications</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto fade-up">Built with cutting-edge technology to deliver a seamless experience</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.1s">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Encryption Protocol</h3>
-                    <p class="text-gray-600">Guddy uses end-to-end encryption for all messages, calls, and files.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.2s">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Server Locations</h3>
-                    <p class="text-gray-600">Hosted exclusively in India across multiple secure data centers in Patna, Varanasi, and Delhi for low latency and data sovereignty.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.3s">
-                    <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Group Features</h3>
-                    <p class="text-gray-600">Groups support up to 512 members with admin controls, disappearing messages, and media sharing up to 2GB per file.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.4s">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Media Sharing</h3>
-                    <p class="text-gray-600">Share high-quality photos, videos (up to 1GB), documents (up to 2GB), and voice messages with no compression or quality loss.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.5s">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Lightweight & Fast</h3>
-                    <p class="text-gray-600">Optimized for low-end devices and slow networks. Works smoothly even on 2G connections.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 pop-in hover:shadow-lg transition-all duration-300 hover:-translate-y-2" style="animation-delay: 0.6s">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6 mx-auto feature-icon">
-                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Message Lifespan</h3>
-                    <p class="text-gray-600">Messages automatically disappers when user session expires. Default is permanent unless changed.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Made in India Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 indian-flag-wave relative overflow-hidden">
-        <div class="absolute inset-0 bg-white/20"></div>
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center">
-                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg pop-in scale-pulse">
-                    <svg class="w-10 h-10 text-green-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
-                    </svg>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-up">Built with Pride. Built for You.</h2>
-                <p class="text-xl text-gray-800 max-w-3xl mx-auto mb-8 fade-up">Guddy is more than an app—it's a testament to Bihar's innovation and our commitment to digital sovereignty.</p>
-                <div class="flex justify-center fade-up">
-                    <div class="relative transform hover:scale-105 transition-transform duration-500">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png" alt="Indian Flag" class="h-32 border-4 border-white shadow-lg rounded">
-                        <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1 rounded-full text-sm font-medium text-gray-800 shadow-md">
-                            Made in Bihar, India
+                    <!-- Skills Section -->
+                    <div class="space-y-8 fade-in">
+                        <h4 class="text-3xl font-bold gradient-text">My Skills</h4>
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-lg font-medium tracking-wide text-white/90">
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Motion Graphics</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> 3D Animation</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Visual Effects</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Sound Design</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Cinematic Editing</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Color Grading</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> After Effects</div>
+                            <div class="flex items-center"><i class="fas fa-check-circle text-purple-500 mr-3"></i> Premiere Pro</div>
                         </div>
                     </div>
                 </div>
@@ -753,287 +492,377 @@
         </div>
     </section>
 
-    <!-- Download Section -->
-    <section id="download" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center">
-                <div class="mb-12">
-                    <div class="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg pop-in float-up-down">
-                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 fade-up">Ready to Experience True Private Messaging?</h2>
-                    <p class="text-xl text-gray-300 mb-8 fade-up">Join 100k+ of Indians who have switched to Guddy for secure, fast, and private communication.</p>
+    <!-- Graphic Design Section -->
+    <section id="design" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">
+                    <i class="fas fa-palette text-purple-500 mr-3 floating"></i>
+                    Graphic Design
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Captivating designs that blend creativity with strategic communication.</p>
+            </div>
 
-                    <div class="flex justify-center fade-up">
-                        <a href="https://play.google.com/store/apps/details?id=com.gudiya.guddy&hl=en-US" target="_blank" class="btn-hover bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center glow transform hover:scale-105 transition-transform duration-300 shadow-xl">
-                            Download for Android
-                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                            </svg>
-                        </a>
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Design 1 -->
+                <div class="portfolio-item fade-in">
+                    <div class="overflow-hidden rounded-t-lg flex justify-center items-center bg-black p-4 h-80">
+                        <img src="https://framerusercontent.com/images/6ZUVXiVIZGLivnu7AVL36IvRtA.jpg?scale-down-to=2048"
+                             alt="Modern Design Concept"
+                             class="w-full max-h-[300px] object-contain graphic-design-img">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">Modern Design Concept</h4>
+                        <p class="text-gray-400 mb-4">Sleek and contemporary design with geometric patterns and vibrant colors.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="portfolio-tag">Minimalist</span>
+                            <span class="portfolio-tag">Typography</span>
+                            <span class="portfolio-tag">Branding</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-800 rounded-xl p-8 max-w-2xl mx-auto border border-gray-700 transform hover:scale-[1.02] transition-transform duration-300">
-                    <h3 class="text-xl font-semibold text-white mb-4">Why Choose Guddy?</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1 text-indigo-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-300">100% Made in India with Indian servers</p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1 text-indigo-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-300">No hidden fees - completely free</p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1 text-indigo-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-300">Works on all Android devices</p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1 text-indigo-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <p class="ml-3 text-gray-300">Regular updates with new features</p>
+                <!-- Design 2 -->
+                <div class="portfolio-item fade-in">
+                    <div class="overflow-hidden rounded-t-lg flex justify-center items-center bg-black p-4 h-80">
+                        <img src="https://framerusercontent.com/images/i4wJkh0E11S1RH0wIlPuZYl2Dk.jpg?scale-down-to=2048"
+                             alt="Abstract Art Composition"
+                             class="w-full max-h-[300px] object-contain graphic-design-img">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">Abstract Art Composition</h4>
+                        <p class="text-gray-400 mb-4">Expressive abstract piece with fluid forms and harmonious colors.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="portfolio-tag">Abstract</span>
+                            <span class="portfolio-tag">Digital Art</span>
+                            <span class="portfolio-tag">Visual Identity</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Upscaling Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rounded-2xl overflow-hidden bg-gradient-to-br from-[#1a1630] to-[#141227] p-8 md:p-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="fade-in">
+                        <span class="inline-block bg-gradient-to-r from-pink-600 to-purple-700 px-4 py-2 rounded-full text-sm font-bold mb-6">AI Enhanced</span>
+                        <h3 class="text-3xl font-bold mb-6">AI Image <span class="gradient-text">Upscaling</span></h3>
+                        <p class="text-gray-300 mb-6 text-lg">
+                            Transform low-resolution images into stunning high-definition visuals using advanced AI algorithms.
+                        </p>
+
+                        <div class="mb-8">
+                            <h4 class="text-xl font-bold mb-4 text-purple-400">Key Benefits:</h4>
+                            <ul class="space-y-3 text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                    <span>4x resolution enhancement without quality loss</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                    <span>Intelligent noise reduction and detail reconstruction</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                    <span>Color correction and enhancement</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center fade-in">
+                        <div class="rounded-xl overflow-hidden border border-white/10 portfolio-item relative">
+                            <img src="https://framerusercontent.com/images/dVdjm2rCSBOpFcvOFvLu7JVQ.jpg?scale-down-to=2048"
+                                 alt="AI Upscaling Example"
+                                 class="w-full max-h-[500px] object-contain">
+                            <div class="absolute bottom-4 left-4 bg-black/70 px-4 py-2 rounded-lg">
+                                <span class="text-sm font-bold text-purple-400">Before → After</span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <div class="flex gap-2">
+                                    <div class="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
+                                    <div class="text-white text-xs font-bold bg-black/60 px-2 py-1 rounded">AI Processing</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">Pricing</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Flexible pricing options to match your project needs and budget.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Shorts Form Pricing -->
+                <div class="pricing-card rounded-xl p-8 fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Shorts Form</h3>
+                    <div class="mb-6 text-center">
+                        <span class="text-3xl font-bold gradient-text">$20-50</span>
+                        <span class="text-gray-400 block">per project</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>One Revision</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>3D Motion Graphics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Sound Designing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Up to 60 seconds</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300">Get Started</a>
+                </div>
+
+                <!-- Long Form Pricing -->
+                <div class="pricing-card popular-card rounded-xl p-8 fade-in">
+                    <div class="absolute -top-3 -right-3 bg-gradient-to-r from-pink-600 to-purple-700 px-3 py-1 rounded-full text-xs font-bold transform rotate-12">POPULAR</div>
+                    <div class="card-icon">
+                        <i class="fas fa-film text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Long Form</h3>
+                    <div class="mb-6 text-center">
+                        <span class="text-3xl font-bold gradient-text">$200-500</span>
+                        <span class="text-gray-300 block">per project</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Two Revisions</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>3D Motion Graphics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Sound Designing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Up to 10 minutes</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300">Get Started</a>
+                </div>
+
+                <!-- Custom Pricing -->
+                <div class="pricing-card rounded-xl p-8 fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-cog text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Custom</h3>
+                    <div class="mb-6 text-center">
+                        <span class="text-3xl font-bold gradient-text">Contact</span>
+                        <span class="text-gray-400 block">for pricing</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Flexible Prices</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Any Niche</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Custom Timeline</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                            <span>Unlimited Revisions</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full submit-btn text-white font-bold py-3 px-6 rounded-full text-center transition duration-300">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title fade-in">Start Here</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-12 fade-in">Let's create your vision together</p>
+
+            <div class="form-container rounded-2xl p-8 md:p-12 mb-16 fade-in">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full input-field py-3 px-6 focus:outline-none">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Your Email" class="w-full input-field py-3 px-6 focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Project Type" class="w-full input-field py-3 px-6 focus:outline-none">
+                    </div>
+                    <div>
+                        <textarea placeholder="Tell me about your project..." rows="5" class="w-full input-field py-3 px-6 focus:outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full submit-btn text-white font-bold py-4 px-6 rounded-full transition duration-300">Send Message</button>
+                </form>
+            </div>
+
+            <div class="fade-in">
+                <h3 class="text-xl font-bold mb-8">Connect</h3>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://www.instagram.com/sailor.fx" target="_blank" class="social-icon text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://discordapp.com/users/sailor.fx" target="_blank" class="social-icon text-xl">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="#" class="social-icon text-xl">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-icon text-xl">
+                        <i class="fab fa-behance"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Guddy</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors duration-300">Features</a></li>
-                        <li><a href="#security" class="text-gray-400 hover:text-white transition-colors duration-300">Security</a></li>
-                        <li><a href="#specs" class="text-gray-400 hover:text-white transition-colors duration-300">Specifications</a></li>
-                        <li><a href="#download" class="text-gray-400 hover:text-white transition-colors duration-300">Download</a></li>
-                    </ul>
+    <footer class="py-10 border-t border-gray-800 bg-[#0c0a1d]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="logo text-white">Sailor<span class="logo-gradient">FX</span></a>
+                    <p class="mt-2 text-gray-500">Motion Graphics Artist & Designer</p>
                 </div>
-                <div>
-                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Company</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Our Mission</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Help Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Tutorials</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a></li>
-                    </ul>
+                <div class="flex space-x-6">
+                    <a href="#portfolio" class="text-gray-400 hover:text-white transition">Portfolio</a>
+                    <a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a>
+                    <a href="#design" class="text-gray-400 hover:text-white transition">Design</a>
                 </div>
             </div>
-            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-                <div class="flex items-center">
-                    <div class="relative">
-                        <img src="https://play-lh.googleusercontent.com/7YZLsGe-vvZed84XAPcOFC0XwGioDpIKLWOj70B3LFnVvNeKQu3moMeInXTNO2rK4ISB=w480-h960-rw" alt="Guddy Logo" class="h-10 w-10 rounded-xl shadow-lg">
-                        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-                    </div>
-                    <span class="ml-2 text-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">Guddy</span>
-                </div>
-                <p class="mt-4 md:mt-0 text-gray-400 text-sm">© Guddy. All rights reserved. Made in Bihar, India.</p>
+            <div class="mt-10 pt-6 border-t border-gray-800 text-center text-gray-500">
+                <p>&copy; 2023 Sailor FX. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Initialize GSAP animations
-        gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-        // Animate feature cards on scroll
-        gsap.utils.toArray('.feature-card').forEach((card, i) => {
-            ScrollTrigger.create({
-                trigger: card,
-                start: "top 80%",
-                onEnter: () => card.classList.add('animate'),
-                onLeaveBack: () => card.classList.remove('animate')
-            });
-        });
-
-        // Hero section animations
-        gsap.from('.phone-mockup', {
-            duration: 1,
-            y: 50,
-            opacity: 0,
-            ease: "power3.out",
-            delay: 0.5
-        });
-
-        gsap.from('nav', {
-            duration: 0.8,
-            y: -50,
-            opacity: 0,
-            ease: "power3.out"
-        });
-
-        // Smooth scroll for navigation
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Animate Made in India section on scroll
-        ScrollTrigger.create({
-            trigger: ".indian-flag-wave",
-            start: "top center",
-            onEnter: () => {
-                gsap.to(".indian-flag-wave", {
-                    duration: 2,
-                    backgroundPosition: "0% 100%",
-                    ease: "none"
-                });
-            },
-            onLeaveBack: () => {
-                gsap.to(".indian-flag-wave", {
-                    duration: 2,
-                    backgroundPosition: "0% 0%",
-                    ease: "none"
-                });
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.backgroundColor = 'rgba(15, 15, 35, 0.9)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.backgroundColor = 'rgba(15, 15, 35, 0.7)';
+                nav.style.boxShadow = 'none';
+            }
+
+            // Fade-in animation for sections
+            document.querySelectorAll('.fade-in').forEach(element => {
+                const position = element.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        });
+
+        // Video hover play functionality
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            const playIcon = container.querySelector('.play-icon');
+
+            container.addEventListener('mouseenter', () => {
+                video.play();
+            });
+
+            container.addEventListener('mouseleave', () => {
+                video.pause();
+            });
+
+            container.addEventListener('click', () => {
+                video.muted = !video.muted;
+
+                // Create mute indicator
+                const indicator = document.createElement('div');
+                indicator.innerHTML = video.muted ?
+                    '<i class="fas fa-volume-mute"></i>' :
+                    '<i class="fas fa-volume-up"></i>';
+                indicator.style.position = 'absolute';
+                indicator.style.top = '10px';
+                indicator.style.right = '10px';
+                indicator.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                indicator.style.color = 'white';
+                indicator.style.padding = '5px 10px';
+                indicator.style.borderRadius = '5px';
+                indicator.style.zIndex = '10';
+                indicator.style.fontSize = '1.2rem';
+
+                container.appendChild(indicator);
+
+                setTimeout(() => {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.remove();
+                    }, 500);
+                }, 1000);
+            });
+        });
+
+        // Initialize fade-in elements
+        document.querySelectorAll('.fade-in').forEach(element => {
+            const position = element.getBoundingClientRect();
+            if (position.top < window.innerHeight - 100) {
+                element.classList.add('visible');
             }
         });
 
-        // Animate elements with .fade-up class
-        gsap.utils.toArray('.fade-up').forEach((el, i) => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%"
-                },
-                opacity: 0,
-                y: 30,
-                duration: 0.8,
-                delay: i * 0.1,
-                ease: "power2.out"
+        // Animate gradients
+        document.querySelectorAll('.animated-gradient').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                element.style.animation = 'gradientShift 3s ease infinite';
             });
-        });
 
-        // Animate elements with .pop-in class
-        gsap.utils.toArray('.pop-in').forEach((el, i) => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%"
-                },
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.6,
-                delay: i * 0.1,
-                ease: "back.out(1.7)"
+            element.addEventListener('mouseleave', () => {
+                element.style.animation = 'none';
             });
-        });
-
-        // Slide in animations
-        gsap.utils.toArray('.slide-in-left').forEach((el, i) => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%"
-                },
-                opacity: 0,
-                x: -30,
-                duration: 0.8,
-                delay: i * 0.1,
-                ease: "power2.out"
-            });
-        });
-
-        gsap.utils.toArray('.slide-in-right').forEach((el, i) => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%"
-                },
-                opacity: 0,
-                x: 30,
-                duration: 0.8,
-                delay: i * 0.1,
-                ease: "power2.out"
-            });
-        });
-
-        // Guddy Chat Animation
-        const messages = [
-            { side: 'left', text: 'Hey! How have you been?' },
-            { side: 'right', text: 'I’ve been great! Just started using Guddy  😄' },
-            { side: 'left', text: 'Oh nice! What’s that?' },
-            { side: 'right', text: 'It’s the easiest way to stay in touch with friends and family.' },
-            { side: 'left', text: 'Sounds perfect! I’m joining now.' }
-        ];
-
-        const chat = document.getElementById('chat');
-        let delay = 1500;
-
-        messages.forEach((msg) => {
-            setTimeout(() => {
-                const typing = document.createElement('div');
-                typing.className = 'guddy-typing';
-                typing.innerHTML = '<span class="guddy-dot"></span><span class="guddy-dot"></span><span class="guddy-dot"></span>';
-                typing.dataset.temp = true;
-                chat.appendChild(typing);
-                chat.scrollTop = chat.scrollHeight;
-            }, delay);
-
-            delay += 1000;
-            setTimeout(() => {
-                const tempTyping = chat.querySelector('[data-temp]');
-                if (tempTyping) tempTyping.remove();
-
-                const bubble = document.createElement('div');
-                bubble.className = `guddy-bubble ${msg.side}`;
-                bubble.textContent = msg.text;
-                chat.appendChild(bubble);
-                chat.scrollTop = chat.scrollHeight;
-            }, delay);
-
-            delay += 1600;
-        });
-
-        // Floating blur balls animation
-        gsap.to(".blur-ball", {
-            duration: 10,
-            x: "random(-100,100)",
-            y: "random(-50,50)",
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true
         });
     </script>
 </body>
