@@ -1,24 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mehak</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    /* page base */
+    :root{ --bg:#000; --muted:#9ea6ad; --glass: rgba(20,20,20,0.55) }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      min-height:100vh;
+      background:var(--bg);
+      color:#fff;
+      font-family: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial;
+      overflow:hidden;
+      position:relative;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Canvas (starry/orbs) behind everything */
+    canvas#bg {
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      display:block;
+      z-index:0;
+    }
+
+    /* small corner texts */
+    .corner {
+      position: absolute;
+      z-index: 3;
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.2;
+    }
+    .corner.left { left: 16px; top: 14px; text-align:left; }
+    .corner.right { right: 16px; top: 14px; text-align:right; }
+
+    /* HERO container centered perfectly */
+    .hero {
+      z-index: 2;                 /* above canvas */
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;         /* ensures true vertical centering */
+      gap: 18px;
+      padding: 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* MEHAK title - big centered logo style */
+    .genshin-title {
+      font-family: "Cinzel Decorative", serif;
+      font-weight: 700;
+      font-size: clamp(3.6rem, 12vw, 9.6rem);
+      line-height: 0.95;
       margin: 0;
-      overflow: hidden;
-      background: black;
+      letter-spacing: 6px;
+      /* gradient fill like the Genshin example */
+      background: linear-gradient(to bottom, #ffffff 18%, #c8e9ff 48%, #1f4f9b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow:
+        0 0 18px rgba(180,210,255,0.55),
+        0 0 44px rgba(70,120,220,0.38),
+        0 10px 40px rgba(0,0,0,0.6);
+      transform-origin:center;
+      display:inline-block;
+      z-index:2;
     }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+
+    .subtitle {
+      color: #bfc7cc;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-top: -6px;
+      z-index:2;
     }
-    /* Neumorphic Button */
+
+    /* Counter + button - placed below title inside hero */
+    #counterBox {
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(10,14,18,0.6);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 10px 16px;
+      border-radius: 999px;
+      box-shadow: 0 6px 30px rgba(10,20,30,0.6);
+      font-family: "Roboto", sans-serif;
+      color: #dbe6ee;
+      font-size: 14px;
+    }
+
+    /* your exact neu-button look (kept as requested) */
     .neu-button {
       background-color: #e0e0e0;
       border-radius: 50px;
@@ -33,213 +120,193 @@
     }
     .neu-button:hover {
       box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+      transform: translateY(-2px);
     }
-    .neu-button:focus {
-      outline: none;
-      box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+    .neu-button:active{ transform: translateY(0); }
+
+    /* bottom footer */
+    .footer {
+      position:absolute;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:3;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+      max-width:780px;
+      padding:0 10px;
     }
 
-    /* Mobile Optimization */
-    @media (max-width: 640px) {
-      h1 {
-        font-size: 3rem !important;
-      }
-      #counterBox {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px;
-      }
-      .neu-button {
-        font-size: 14px;
-        padding: 10px 22px;
-      }
+    /* responsiveness tweaks */
+    @media (max-width:720px){
+      .corner{ font-size:11px; max-width:140px; opacity:0.95 }
+      .genshin-title{ font-size: clamp(2.2rem, 16vw, 5rem); letter-spacing:3px; }
+      #counterBox{ gap: 10px; padding: 8px 12px; font-size:13px; }
+      .neu-button{ padding:10px 18px; font-size:14px; }
+      .footer{ font-size:11px; bottom:10px; }
     }
   </style>
 </head>
-<body class="text-gray-100 flex flex-col items-center justify-center min-h-screen relative">
+<body>
 
-  <!-- Top Left -->
-  <div class="absolute top-4 left-4 text-[10px] sm:text-xs text-gray-400 space-y-1">
-    <p>The silence of books</p>
-    <p>Where light refuses entry</p>
-    <p>The shadow laughs</p>
-  </div>
-
-  <!-- Top Right -->
-  <div class="absolute top-4 right-4 text-[10px] sm:text-xs text-gray-400 text-right space-y-1">
-    <p>Ink stains the soul,</p>
-    <p>pages burn quietly,</p>
-    <p>Fyodor watches.</p>
-  </div>
-
-  <!-- Counter + Button -->
-  <div id="counterBox" class="absolute top-6 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-gray-900 bg-opacity-50 border border-gray-600 px-4 py-2 rounded-full text-sm tracking-wider shadow-lg">
-    <span>Sorry Counter: <span id="counter">50</span></span>
-    <button id="sorryBtn" class="neu-button">Say Sorry</button>
-  </div>
-
-  <!-- Center Logo/Text -->
-  <div class="text-center mt-24 sm:mt-32">
-    <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold tracking-wide" style="font-family: 'Cinzel Decorative', serif;">
-      Mehak
-    </h1>
-    <p class="text-gray-400 text-xs sm:text-sm mt-2 tracking-widest">A cute girly existence</p>
-  </div>
-
-  <!-- Bottom Footer -->
-  <div class="absolute bottom-6 text-center text-[10px] sm:text-xs text-gray-400 max-w-lg px-4 space-y-1">
-    <p>Words dissolve into silence.</p>
-    <p>The river carries guilt away.</p>
-    <p>— A whisper Fyodor left behind.</p>
-  </div>
-
-  <!-- Background Canvas -->
+  <!-- canvas for stars/orbs -->
   <canvas id="bg"></canvas>
 
-  <!-- Click Sound -->
+  <!-- small corner texts -->
+  <div class="corner left">
+    <div>The silence of books</div>
+    <div>Where light refuses entry</div>
+    <div>The shadow laughs</div>
+  </div>
+  <div class="corner right">
+    <div>Ink stains the soul,</div>
+    <div>pages burn quietly,</div>
+    <div>Fyodor watches.</div>
+  </div>
+
+  <!-- centered hero area (perfectly centered) -->
+  <main class="hero" role="main" aria-labelledby="title">
+    <h1 id="title" class="genshin-title">Mehak</h1>
+    <div class="subtitle">A cute girly existence</div>
+
+    <!-- counter box moved below title (centered) -->
+    <div id="counterBox" aria-live="polite">
+      <div>Sorry Counter: <strong id="counter">50</strong></div>
+      <button id="sorryBtn" class="neu-button" aria-label="Say Sorry">Say Sorry</button>
+    </div>
+  </main>
+
+  <div class="footer">
+    Words dissolve into silence.<br>
+    The river carries guilt away.<br>
+    — A whisper Fyodor left behind.
+  </div>
+
+  <!-- click sound -->
   <audio id="clickSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
 
   <script>
-    const canvas = document.getElementById("bg");
-    const ctx = canvas.getContext("2d");
-    let w, h;
+    /* Canvas star + orb scene (resilient to resizing) */
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d', { alpha: true });
+
+    let W = 0, H = 0;
+    let stars = [];
+    let orbs = [];
 
     function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
+      W = canvas.width = innerWidth;
+      H = canvas.height = innerHeight;
+      // re-create particles for consistent placement
+      createStars(260);
+      createOrbs([
+        { x: W * 0.22, y: H * 0.35, r: Math.min(300, Math.max(120, W * 0.18)), color: "hsla(215,70%,65%,0.22)" },
+        { x: W * 0.78, y: H * 0.33, r: Math.min(360, Math.max(140, W * 0.22)), color: "hsla(200,60%,60%,0.22)" },
+        { x: W * 0.5,  y: H * 0.75, r: Math.min(220, Math.max(100, W * 0.14)), color: "hsla(280,65%,68%,0.20)" },
+      ]);
     }
-    window.addEventListener("resize", resize);
+
+    window.addEventListener('resize', resize, { passive: true });
+
+    /* create twinkling stars */
+    function createStars(count){
+      stars = [];
+      for(let i=0;i<count;i++){
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random()*1.6 + 0.4,
+          alpha: Math.random()*0.8 + 0.2,
+          tw: (Math.random()*0.03) + 0.004,
+          dir: Math.random() > 0.5 ? 1 : -1
+        });
+      }
+    }
+
+    /* create orbs */
+    function createOrbs(defs){
+      orbs = [];
+      defs.forEach(d=>{
+        orbs.push({
+          x: d.x,
+          y: d.y,
+          r: d.r,
+          color: d.color,
+          dx: (Math.random()-0.5) * 0.9,
+          dy: (Math.random()-0.5) * 0.9
+        });
+      });
+    }
+
+    // initial resize to set arrays
     resize();
 
-    // Simple Star class for the starry night background
-    class Star {
-      constructor() {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.2;
-        this.speedY = (Math.random() - 0.5) * 0.2;
-        this.opacity = Math.random() * 0.7 + 0.3;
-        this.twinkleSpeed = Math.random() * 0.02 + 0.005;
-        this.twinkleDirection = Math.random() > 0.5 ? 1 : -1;
-      }
-      
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        
-        // Wrap around edges
-        if (this.x > w) this.x = 0;
-        if (this.x < 0) this.x = w;
-        if (this.y > h) this.y = 0;
-        if (this.y < 0) this.y = h;
-        
-        // Twinkle effect
-        this.opacity += this.twinkleSpeed * this.twinkleDirection;
-        if (this.opacity > 1) {
-          this.opacity = 1;
-          this.twinkleDirection *= -1;
-        } else if (this.opacity < 0.3) {
-          this.opacity = 0.3;
-          this.twinkleDirection *= -1;
-        }
-      }
-      
-      draw() {
+    function draw(){
+      // soft clearing
+      ctx.clearRect(0,0,W,H);
+
+      // faint background wash to avoid harsh black edges
+      // ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      // ctx.fillRect(0,0,W,H);
+
+      // draw orbs (behind stars)
+      orbs.forEach(o=>{
+        // drift
+        o.x += o.dx; o.y += o.dy;
+        // bounce
+        if(o.x < -o.r*0.5 || o.x > W + o.r*0.5) o.dx *= -1;
+        if(o.y < -o.r*0.5 || o.y > H + o.r*0.5) o.dy *= -1;
+
+        const g = ctx.createRadialGradient(o.x, o.y, Math.max(2, o.r*0.15), o.x, o.y, o.r);
+        g.addColorStop(0, o.color);
+        g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g;
         ctx.beginPath();
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.arc(o.x, o.y, o.r, 0, Math.PI*2);
         ctx.fill();
-      }
-    }
-
-    // Create stars
-    const stars = [];
-    const starCount = 200;
-
-    for (let i = 0; i < starCount; i++) {
-      stars.push(new Star());
-    }
-
-    // Existing Orb class
-    class Orb {
-      constructor(x, y, r, color) {
-        this.x = x;
-        this.y = y;
-        this.r = r;
-        this.color = color;
-        this.dx = (Math.random() - 0.5) * 0.6;
-        this.dy = (Math.random() - 0.5) * 0.6;
-      }
-      draw() {
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(this.x, this.y, this.r * 0.2, this.x, this.y, this.r);
-        gradient.addColorStop(0, this.color);
-        gradient.addColorStop(1, "transparent");
-        ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      update() {
-        this.x += this.dx;
-        this.y += this.dy;
-        if (this.x < this.r || this.x > w - this.r) this.dx *= -1;
-        if (this.y < this.r || this.y > h - this.r) this.dy *= -1;
-        this.draw();
-      }
-    }
-
-    // Orbs
-    const orbs = [
-      new Orb(w * 0.3, h * 0.4, 200, "hsla(220, 60%, 70%, 0.25)"),
-      new Orb(w * 0.7, h * 0.5, 250, "hsla(200, 50%, 65%, 0.25)"),
-      new Orb(w * 0.5, h * 0.8, 180, "hsla(210, 55%, 75%, 0.25)")
-    ];
-
-    function animate() {
-      // Clear canvas with a subtle dark background
-      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-      ctx.fillRect(0, 0, w, h);
-      
-      // Draw stars
-      stars.forEach(star => {
-        star.update();
-        star.draw();
       });
-      
-      // Draw orbs
-      orbs.forEach(o => o.update());
-      
-      requestAnimationFrame(animate);
-    }
-    animate();
 
-    // Counter + Button Logic
+      // draw stars on top of orbs (twinkle)
+      stars.forEach(s=>{
+        s.alpha += s.tw * s.dir;
+        if(s.alpha > 1){ s.alpha = 1; s.dir *= -1; }
+        if(s.alpha < 0.25){ s.alpha = 0.25; s.dir *= -1; }
+        ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    /* Counter + webhook + sound logic */
     let count = 50;
-    const counterEl = document.getElementById("counter");
-    const sorryBtn = document.getElementById("sorryBtn");
-    const clickSound = document.getElementById("clickSound");
+    const counterEl = document.getElementById('counter');
+    const sorryBtn = document.getElementById('sorryBtn');
+    const clickSound = document.getElementById('clickSound');
 
     const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1418334231238803556/jhhpmTuQXDjovRV2Nu9-enc5oKJielkHdyIwMVETSGkhzc03jPCErxh4BzeOTHS0S-h9";
 
-    sorryBtn.addEventListener("click", () => {
-      if (count > 0) {
-        count--;
-        counterEl.textContent = count;
-      }
+    sorryBtn.addEventListener('click', () => {
+      if(count > 0){ count--; counterEl.textContent = count; }
       clickSound.currentTime = 0;
       clickSound.play();
-
-      // Send message to Discord
+      // send to discord (best-effort)
       fetch(DISCORD_WEBHOOK, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: `🙏 Someone said sorry! Remaining counter: ${count}`
-        })
-      }).catch(err => console.error("Discord API error:", err));
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `🙏 Someone said sorry! Remaining counter: ${count}` })
+      }).catch(e => console.warn('discord error', e));
+    });
+
+    // ensure centering if font metrics shift after load (helps precise visual centering)
+    window.addEventListener('load', () => {
+      // small repaint to ensure hero stays centered after fonts load
+      requestAnimationFrame(()=>{ /* nop */ });
     });
   </script>
-
 </body>
 </html>
