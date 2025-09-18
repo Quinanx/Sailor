@@ -16,41 +16,78 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1; /* background layer */
+      z-index: -1;
+    }
+    /* Neumorphic Button */
+    .neu-button {
+      background-color: #e0e0e0;
+      border-radius: 50px;
+      box-shadow: inset 4px 4px 10px #bcbcbc, inset -4px -4px 10px #ffffff;
+      color: #4d4d4d;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 12px 28px;
+      transition: all 0.2s ease-in-out;
+      border: 2px solid rgb(206, 206, 206);
+      font-weight: bold;
+    }
+    .neu-button:hover {
+      box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+    }
+    .neu-button:focus {
+      outline: none;
+      box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 3rem !important;
+      }
+      #counterBox {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+      .neu-button {
+        font-size: 14px;
+        padding: 10px 22px;
+      }
     }
   </style>
 </head>
 <body class="text-gray-100 flex flex-col items-center justify-center min-h-screen relative">
 
   <!-- Top Left -->
-  <div class="absolute top-6 left-6 text-xs text-gray-400 space-y-1">
+  <div class="absolute top-4 left-4 text-[10px] sm:text-xs text-gray-400 space-y-1">
     <p>The silence of books</p>
     <p>Where light refuses entry</p>
     <p>The shadow laughs</p>
   </div>
 
   <!-- Top Right -->
-  <div class="absolute top-6 right-6 text-xs text-gray-400 text-right space-y-1">
+  <div class="absolute top-4 right-4 text-[10px] sm:text-xs text-gray-400 text-right space-y-1">
     <p>Ink stains the soul,</p>
     <p>pages burn quietly,</p>
     <p>Fyodor watches.</p>
   </div>
 
-  <!-- Counter -->
-  <div class="absolute top-6 left-1/2 transform -translate-x-1/2 bg-gray-900 bg-opacity-50 border border-gray-600 px-4 py-1 rounded-full text-sm tracking-wider shadow-lg">
-    Sorry Counter: <span id="counter">50</span>
+  <!-- Counter + Button -->
+  <div id="counterBox" class="absolute top-6 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-gray-900 bg-opacity-50 border border-gray-600 px-4 py-2 rounded-full text-sm tracking-wider shadow-lg">
+    <span>Sorry Counter: <span id="counter">50</span></span>
+    <button id="sorryBtn" class="neu-button">Say Sorry</button>
   </div>
 
   <!-- Center Logo/Text -->
-  <div class="text-center">
-    <h1 class="text-6xl md:text-8xl font-bold tracking-wide" style="font-family: 'Cinzel Decorative', serif;">
+  <div class="text-center mt-24 sm:mt-32">
+    <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold tracking-wide" style="font-family: 'Cinzel Decorative', serif;">
       Mehak
     </h1>
-    <p class="text-gray-400 text-sm mt-2 tracking-widest">A cute girly existence</p>
+    <p class="text-gray-400 text-xs sm:text-sm mt-2 tracking-widest">A cute girly existence</p>
   </div>
 
   <!-- Bottom Footer -->
-  <div class="absolute bottom-6 text-center text-xs text-gray-400 max-w-lg px-4 space-y-1">
+  <div class="absolute bottom-6 text-center text-[10px] sm:text-xs text-gray-400 max-w-lg px-4 space-y-1">
     <p>Words dissolve into silence.</p>
     <p>The river carries guilt away.</p>
     <p>— A whisper Fyodor left behind.</p>
@@ -58,6 +95,9 @@
 
   <!-- Background Canvas -->
   <canvas id="bg"></canvas>
+
+  <!-- Click Sound -->
+  <audio id="clickSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
 
   <script>
     const canvas = document.getElementById("bg");
@@ -112,15 +152,30 @@
     }
     animate();
 
-    // Counter logic
+    // Counter + Button Logic
     let count = 50;
     const counterEl = document.getElementById("counter");
-    // example: click anywhere decreases sorry count
-    document.body.addEventListener("click", () => {
+    const sorryBtn = document.getElementById("sorryBtn");
+    const clickSound = document.getElementById("clickSound");
+
+    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1418334231238803556/jhhpmTuQXDjovRV2Nu9-enc5oKJielkHdyIwMVETSGkhzc03jPCErxh4BzeOTHS0S-h9";
+
+    sorryBtn.addEventListener("click", () => {
       if (count > 0) {
         count--;
         counterEl.textContent = count;
       }
+      clickSound.currentTime = 0;
+      clickSound.play();
+
+      // Send message to Discord
+      fetch(DISCORD_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `🙏 Someone said sorry! Remaining counter: ${count}`
+        })
+      }).catch(err => console.error("Discord API error:", err));
     });
   </script>
 
